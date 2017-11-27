@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/schedule_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Citas"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/schedule_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/schedule_text"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <ListView
+        android:id="@+id/list_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/schedule_text"
+        android:scrollbars="none"
+        android:paddingTop="15dp"
+        android:visibility="visible"/>
+</RelativeLayout>

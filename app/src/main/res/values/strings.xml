@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyEEG</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="date_image_container_schedule">date_image_container_schedule</string>
+    <string name="date_text_container_schedule">date_text_container_schedule</string>
+
+    <string name="add_user_notification_icon">add_user_notification</string>
+    <string name="record_notification_icon">record_notification_icon</string>
+    <string name="calendar_notification_icon">calendar_notification_icon</string>
+    <string name="allert_notification_icon">allert_notification_icon</string>
+    <string name="error_bluetooth_icon">error_bluetooth_icon</string>
+    <string name="error_wifi_icon">error_wifi_name</string>
+
+
+
+    <string name="facebook_app_id">736060693236895</string>
+
+    <!--Splash-->
+    <string name="version">Versión 1.2 Agosto 2017</string>
+
+    <!--Login-->
+    <!--Sign In-->
+    <string name="text_signup">¿No tiene una cuenta? ¡Registrese!</string>
+    <string name="other_ligin">O tambien inicia sesion con</string>
+    <string name="forget">¿Olvidaste tu contraseña?</string>
+    <string name="remember">¿Olvidaste tu contraseña?</string>
+    <string name="user_or_email">Nombre de usuario o email</string>
+    <string name="signin">Entrar</string>
+
+
+    <string name="login_cancel_login">Se a cerrado el inicio de sesión</string>
+    <string name="login_error_login">Ocurrió un error al iniciar sesión</string>
+
+    <!--Sign Up-->
+    <string name="name_user">Nombre</string>
+    <string name="fistlastname_user">Apellido paterno</string>
+    <string name="secondlastname_user">Apellido materno</string>
+    <string name="email_user">Email</string>
+    <string name="password_user">Contraseña</string>
+    <string name="password_confirmation_user">Confirmación</string>
+    <string name="singup">Registrarse</string>
+    <string name="age_user">Edad</string>
+    <string name="illness_user">Enfermedad</string>
+    <string name="are_you_teacher">¿Usted es Medico o Especialista?</string>
+    <string name="gender_user_singup">Genero</string>
+    <string name="are_you_female">Femenino</string>
+    <string name="are_you_male">Masculino</string>
+
+
+
+    <!--Forgot-->
+    <string name="restart_password">Reestablecer contraseña</string>
+    <string name="text_forgot">Ingresa tu direccion de correo electronico y nosotros te enviaremos un enlace para reestablecer tu contraseña</string>
+
+    <string name="scanning_devices">Escaneando dispositivos</string>
+    <string name="skip_conection">SKIP</string>
+
+    <!--Schedule-->
+    <string name="text_spetialist_suggestion">Tu especialista te recomienda:</string>
+    <string name="text_recomendation">Por favor, coloca correctamente tus electrodos, la siguiente imagen te indicara si estan colocados de manera correcta (color verde) o estan mal colocados (color rojo)</string>
+    <string name="hint_minute">Minute</string>
+    <string name="message_minutes">Please Enter Minutes...</string>
+
+    <string name="start_recording">Comenzar grabación</string>
+    <string name="test_system">Test</string>
+    <string name="text_test_suggestion">Antes de comenzar un estudio se debe relizar una prueba del sistema. Asegurate de que todos los dispositivos esten encendidos.</string>
+    <string name="text_do_test">Da clic en test para iniciar la prueba.</string>
+    <string name="calibration_persentage">Porcentaje de calibración:</string>
+
+
+
+</resources>

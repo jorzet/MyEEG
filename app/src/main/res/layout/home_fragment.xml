@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/add_user_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mrl_rippleOverlay="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_add_user_icon"
+                android:transitionName="@string/add_user_notification_icon"
+                android:src="@drawable/ic_add_notification"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:text="Usuario aceptado"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/record_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_user_notification"
+        app:mrl_rippleOverlay="true" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_record_icon"
+                android:transitionName="@string/record_notification_icon"
+                android:src="@drawable/ic_record_notification"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:text="Termino de grabación"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/calendar_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/record_notification"
+        app:mrl_rippleOverlay="true" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_calendar_icon"
+                android:transitionName="@string/calendar_notification_icon"
+                android:src="@drawable/ic_calendar_notification"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:text="Tienes una cita pendiente"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/without_medic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendar_notification"
+        app:mrl_rippleOverlay="true" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_allert"
+                android:transitionName="@string/allert_notification_icon"
+                android:src="@drawable/ic_alert"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="10dp"
+                android:text="       Aun no tienes un medico o especialista asignado"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/error_bluetooth_conection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/without_medic"
+        app:mrl_rippleOverlay="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_bluetooth_icon"
+                android:transitionName="@string/error_bluetooth_icon"
+                android:src="@drawable/ic_error_bluetooth_conection"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:text="Error de conexión Bluetooth"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/error_wifi_conection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/error_bluetooth_conection"
+        app:mrl_rippleOverlay="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:elevation="4dp"
+            android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/small_wifi_icon"
+                android:transitionName="@string/error_wifi_icon"
+                android:src="@drawable/ic_error_wifi_conection"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:textSize="20dp"
+                android:text="Error de conexión wifi"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+</RelativeLayout>

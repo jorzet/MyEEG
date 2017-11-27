@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.activities.LoginActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/ic_background_logo"
+                android:id="@+id/imgLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/version"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/forgot_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/imgLogo"
+                android:layout_marginTop="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/restart_password_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:id="@+id/textView"
+                    android:layout_marginTop="31dp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/linkSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_forgot"
+                    android:gravity="center"
+                    android:layout_below="@+id/textView"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="36dp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="142dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_below="@+id/textView">
+                    <EditText
+                        android:id="@+id/email_user_forgot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:hint="@string/email_user"
+                        android:layout_alignParentStart="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/error_forgot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/inputEmail"
+
+                    android:textColor="@android:color/holo_red_light"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/restart_password_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:backgroundTint="@color/colorGreenButton"
+                    android:textColor="@color/negro"
+                    android:text="@string/restart_password"
+                    android:layout_marginTop="52dp"
+                    android:layout_below="@+id/error_forgot"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

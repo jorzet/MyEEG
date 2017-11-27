@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#51CB55</color>
+    <color name="colorPrimaryDark">#43A746</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="colorGreenButton">#17AA1C</color>
+    <color name="colorGrayButton">#FEFEFE</color>
+    <color name="colorTool">#FEFEFE</color>
+    <color name="colorBackgrond">#FEFEFE</color>
+
+    <color name="negro">#000000</color>
+    <color name="negro_semitransparente">#B2000000</color>
+    <color name="blanco">#fafafa</color>
+
+    <color name="orange">#FF9900</color>
+    <color name="green">#009900</color>
+    <color name="blue">#000099</color>
+    <color name="blue_progress_bar_recording">#00ABF0</color>
+    <color name="blue_sing_in_button">#4266B2</color>
+    <color name="red">#D41313</color>
+</resources>
