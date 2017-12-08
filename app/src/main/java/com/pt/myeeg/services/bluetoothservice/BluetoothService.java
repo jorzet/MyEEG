@@ -244,6 +244,7 @@ public class BluetoothService {
 
         String jsonDevices = ih.getPatientDevicesJson();
         ArrayList<Dispositivo> dispositivos = ih.getPatientDevices(jsonDevices,Dispositivo.class);
+        String[] devices = cita.getElectrodos();
 
         int idPatient = paciente.getId();
         int scheduleId = cita.getFolioCita();
@@ -256,9 +257,29 @@ public class BluetoothService {
         JSONArray channelArray = new JSONArray();
         JSONArray macAddressArray = new JSONArray();
 
-        for(int i=0;i<dispositivos.size();i++){
+        for(int i = 0; i < dispositivos.size(); i++){
+            for(int j = 0; j < devices.length; j++){
+                if(!dispositivos.get(i).getDeviceName().equals("raspberry") &&
+                        dispositivos.get(i).getDeviceName().equals(devices[j])) {
+                    JSONObject jsonChannels = new JSONObject();
+                    JSONObject jsonMacs = new JSONObject();
+                    try {
+                        jsonChannels.put("channel", dispositivos.get(i).getDeviceName());
+                        jsonMacs.put("mac", dispositivos.get(i).getDeviceMacAddress());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    channelArray.put(jsonChannels);
+                    macAddressArray.put(jsonMacs);
+                }
+            }
+        }
 
-            if(!dispositivos.get(i).getDeviceName().equals("raspberry")) {
+
+        /*for(int i=0;i<dispositivos.size();i++){
+
+            if(!dispositivos.get(i).getDeviceName().equals("raspberry") &&
+                    dispositivos.get(i).getDeviceName().equals(devices[i])) {
                 JSONObject jsonChannels = new JSONObject();
                 JSONObject jsonMacs = new JSONObject();
                 try {
@@ -270,7 +291,7 @@ public class BluetoothService {
                 channelArray.put(jsonChannels);
                 macAddressArray.put(jsonMacs);
             }
-        }
+        }*/
 
         try {
             json.put(Palabras.ID_PATIENT,idPatient);
@@ -283,7 +304,7 @@ public class BluetoothService {
             e.printStackTrace();
         }
 
-        System.out.println("bluettothJson: "+json.toString());
+        System.out.println("bluetoothJson: "+json.toString());
 
         return json.toString();
     }

@@ -3,7 +3,6 @@ package com.pt.myeeg.ui.activities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +16,14 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.pt.myeeg.R;
+import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.fragments.bluetooth.BluetoothConnectionFragment;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
 import com.pt.myeeg.fragments.schedule.ScheduleFragment;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
 import com.pt.myeeg.services.database.InfoHandler;
+
+import java.util.ArrayList;
 
 
 /**
@@ -82,6 +83,7 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container_schedule, new ScheduleFragment());
         ft.commit();
+
 
         /*if(extras!=null && extras.getInt(RecordingFragment.RECORDING) == 1 || Boolean.parseBoolean(new InfoHandler(getApplication()).getExtraStored(RecordingFragment.RECORDING))){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

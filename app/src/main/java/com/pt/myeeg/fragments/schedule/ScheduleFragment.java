@@ -208,6 +208,7 @@ public class ScheduleFragment extends BaseFragment{
             } else if (response == BluetoothService.CODE_ERROR_CONNECTION) {
                 String error = mBluetoothService.getCanNotConnectError();
                 // show the error in mTestError
+                mTestProgressBar.setVisibility(View.GONE);
                 mTestError.setText(error);
                 mConnectingToDevice.setVisibility(View.GONE);
                 mTestError.setVisibility(View.VISIBLE);

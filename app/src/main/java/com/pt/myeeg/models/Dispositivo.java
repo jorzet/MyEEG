@@ -1,7 +1,7 @@
 package com.pt.myeeg.models;
 
 /**
- * Created by fhmma on 20/11/2017.
+ * Created by Fernando Hernandez Molina on 20/11/2017.
  */
 
 public class Dispositivo {

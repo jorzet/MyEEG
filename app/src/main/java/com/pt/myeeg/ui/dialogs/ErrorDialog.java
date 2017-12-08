@@ -48,4 +48,16 @@ public class ErrorDialog {
                 .setIcon(mContext.getDrawable(R.drawable.ic_alert))
                 .show();
     }
+
+    public void showErrorNotDevices(){
+        builder.setTitle("Alerta")
+                .setMessage("No tienes dispositivos asociados")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
 }

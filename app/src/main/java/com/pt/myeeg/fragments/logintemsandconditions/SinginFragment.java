@@ -185,11 +185,18 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
 
                 new InfoHandler(getContext()).saveUserAndToken(response);
                 Usuario user = new InfoHandler(getContext()).getUserInfo();
-                if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE))
-                    new GetSpetialistData().execute();
-                else {
-                    new InfoHandler(getContext()).savePatientAndToken(response);
-                    new GetPatientSchedules().execute();
+                if(user != null){
+                    if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE))
+                        new GetSpetialistData().execute();
+                    else {
+                        new InfoHandler(getContext()).savePatientAndToken(response);
+                        new GetPatientSchedules().execute();
+                    }
+                } else {
+                    mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+                    mProgressBar.setVisibility(View.GONE);
+                    mLoginContent.setVisibility(View.VISIBLE);
+                    new InfoHandler(getContext()).removePatientAndToken();
                 }
             }
         }
@@ -314,7 +321,10 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
                 new InfoHandler(getContext()).saveDevices(response);
                 String savedDevices = new InfoHandler(getContext()).getPatientDevicesJson();
                 ArrayList<Dispositivo> dispositivos = new InfoHandler(getContext()).getPatientDevices(savedDevices, Dispositivo.class);
-                System.out.println("tamaño de arreglo: "+dispositivos.size());
+                if(dispositivos != null)
+                    System.out.println("tamaño de arreglo: "+dispositivos.size());
+                else
+                    System.out.println("tamaño de arreglo: "+0);
                 goHomeActivity();
             }
         }

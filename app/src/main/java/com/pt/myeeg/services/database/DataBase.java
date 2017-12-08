@@ -46,7 +46,7 @@ public class DataBase extends SQLiteOpenHelper{
     private static final String COL_GENDER = "gender";
     private static final String COL_ID_DEVICE = "idDevice";
     private static final String COL_DEVICE_NAME = "deviceName";
-    private static final String COL_DEVICE_MAC = "deviceMAc";
+    private static final String COL_DEVICE_MAC = "deviceMAC";
 
     /* SQL instructions */
     private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS ";
