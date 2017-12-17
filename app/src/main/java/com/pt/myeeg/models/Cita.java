@@ -51,6 +51,12 @@ public class Cita {
         return params[1] + " " + months[Integer.parseInt(params[0])-1];
     }
 
+    public String getDayMonthAndYearFormath(){
+        String[] params = this.fecha.split("/");
+        String[] months = {"Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        return params[1] + " " + months[Integer.parseInt(params[0])-1] + params[2];
+    }
+
     public void setFolioCita(int folioCita){
         this.folioCita=folioCita;
     }

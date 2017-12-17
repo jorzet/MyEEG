@@ -56,8 +56,6 @@ public class SchedulesFragment extends BaseFragment implements AdapterView.OnIte
 
         View rootView = inflater.inflate(R.layout.schedules_fragment, container, false);
 
-
-
         listView = (ListView) rootView.findViewById(R.id.list_schedule);
         mErrorSchedule = (TextView) rootView.findViewById(R.id.schedule_error);
         listView.setOnItemClickListener(this);

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Datos medicos"
+        android:text="Datos"
         android:padding="10dp"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -42,79 +42,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
                 <TextView
-                    android:text="Especialista asignado"
+                    android:text="Email"
                     android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_weight=".50"/>
 
-                <TextView
-                    android:text="Enfermedad"
-                    android:textStyle="bold"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight=".50"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/especialista_paciente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:layout_weight=".50"/>
-                <ImageView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:background="#CDCDCD"
-                    android:scaleType="fitXY"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="2dp"
-                    android:paddingTop="2dp" />
-
-                <TextView
-                    android:id="@+id/enfermedad_paciente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:layout_weight=".50"/>
-
-            </LinearLayout>
-
-            <ImageView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#CDCDCD"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
                 <TextView
                     android:text="Genero"
                     android:textStyle="bold"
@@ -123,28 +57,22 @@
                     android:gravity="center"
                     android:layout_weight=".50"/>
 
-                <TextView
-                    android:text="Peso"
-                    android:textStyle="bold"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight=".50"/>
-
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
-                    android:id="@+id/genero_paciente"
+                    android:id="@+id/email_spetialist"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_weight=".50"
                     android:clickable="true"
                     android:elevation="4dp"
-                    android:paddingTop="20dp"
+                    android:gravity="center"
                     android:paddingBottom="20dp"
-                    android:layout_weight=".50"/>
+                    android:paddingTop="20dp" />
 
                 <ImageView
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -160,7 +88,7 @@
                     android:paddingTop="2dp" />
 
                 <TextView
-                    android:text="75.2 kg"
+                    android:id="@+id/gender_spetialist"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -190,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
                 <TextView
-                    android:text="Ultimo estudio"
+                    android:text="Pacientes"
                     android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -198,7 +126,7 @@
                     android:layout_weight=".50"/>
 
                 <TextView
-                    android:text="Total de estudios"
+                    android:text="Citas"
                     android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -210,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/last_study_patient"
+                    android:id="@+id/patients_spetialist"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -234,17 +162,33 @@
                     android:paddingTop="2dp" />
 
                 <TextView
-                    android:id="@+id/total_studies_patient"
+                    android:id="@+id/schedules_spetialist"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_weight=".50"
                     android:clickable="true"
                     android:elevation="4dp"
-                    android:paddingTop="20dp"
+                    android:gravity="center"
                     android:paddingBottom="20dp"
-                    android:layout_weight=".50"/>
+                    android:paddingTop="20dp" />
 
             </LinearLayout>
+
+            <ImageView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#CDCDCD"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp" />
+
+
+
 
             <ImageView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -263,6 +207,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -271,7 +216,7 @@
                     android:text="Acerca de este usuario"
                     android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/about_patient"
+                    android:id="@+id/about_spetialist"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"

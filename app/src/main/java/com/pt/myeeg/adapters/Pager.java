@@ -1,12 +1,17 @@
 package com.pt.myeeg.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.pt.myeeg.fragments.profile.ProfileFragment;
+import com.pt.myeeg.fragments.Patients.PatientsFragment;
+import com.pt.myeeg.fragments.profile.ProfileFragmentPatient;
+import com.pt.myeeg.fragments.profile.ProfileFragmentSpetialist;
 import com.pt.myeeg.fragments.results.PatientResults;
+import com.pt.myeeg.fragments.schedule.AppointmentSchedule;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
+import com.pt.myeeg.services.database.InfoHandler;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
@@ -15,28 +20,30 @@ import com.pt.myeeg.fragments.schedule.SchedulesFragment;
 public class Pager extends FragmentStatePagerAdapter{
 
     private int mTabCount;
-    public boolean isMEdic = false;
+    public boolean isMedic = false;
+    public Context mContext;
 
-    public Pager(FragmentManager fm, int tabCount) {
+    public Pager(Context context, FragmentManager fm, int tabCount) {
         super(fm);
+        this.mContext = context;
         this.mTabCount= tabCount;
+        isMedic = getCurrentUser();
     }
 
-    public void getCurrentUser(){
-        //Using shared preferences
-
+    public boolean getCurrentUser(){
+        return new InfoHandler(mContext).getIsMedic();
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(isMEdic) {
+        if(isMedic) {
             switch (position) {
                 case 0:
-                    return new ProfileFragment();
+                    return new ProfileFragmentSpetialist();
                 case 1:
-                    return new SchedulesFragment();
+                    return new PatientsFragment();
                 case 2:
-                    return new SchedulesFragment();
+                    return new AppointmentSchedule();
                 default:
                     return null;
             }
@@ -44,10 +51,8 @@ public class Pager extends FragmentStatePagerAdapter{
         else{
             switch (position) {
                 case 0:
-                    return new ProfileFragment();
+                    return new ProfileFragmentPatient();
                 case 1:
-                    return new PatientResults();
-                case 2:
                     return new SchedulesFragment();
                 default:
                     return null;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.models.Dispositivo;
+import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.models.Usuario;
@@ -37,7 +38,7 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
 
     /* For the View */
     private Button mLogin;
-    private Button mSingUp;
+    //private Button mSingUp;
     private TextView mRestartPassword;
     private EditText mEmail;
     private EditText mPassword;
@@ -65,7 +66,7 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.signin_fragment,container,false);
 
         mLogin = (Button) rootView.findViewById(R.id.singin_button);
-        mSingUp = (Button) rootView.findViewById(R.id.link_to_signup);
+        //mSingUp = (Button) rootView.findViewById(R.id.link_to_signup);
         mRestartPassword = (TextView) rootView.findViewById(R.id.link_to_forgot);
         mEmail = (EditText) rootView.findViewById(R.id.email_user_singin);
         mPassword = (EditText) rootView.findViewById(R.id.password_user_singin);
@@ -74,7 +75,7 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
         mLoginContent = (View) rootView.findViewById(R.id.login_content);
 
         mLogin.setOnClickListener(this);
-        mSingUp.setOnClickListener(this);
+        //mSingUp.setOnClickListener(this);
         mRestartPassword.setOnClickListener(this);
 
         if(savedInstanceState!=null){
@@ -106,9 +107,9 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
             case R.id.singin_button:
                 doLogIn();
                 break;
-            case R.id.link_to_signup:
+            /*case R.id.link_to_signup:
                 goSingupFragment();
-                break;
+                break;*/
             case R.id.link_to_forgot:
                 goForgotFragment();
                 break;
@@ -186,10 +187,15 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
                 new InfoHandler(getContext()).saveUserAndToken(response);
                 Usuario user = new InfoHandler(getContext()).getUserInfo();
                 if(user != null){
-                    if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE))
+                    InfoHandler ih = new InfoHandler(getContext());
+                    if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE)) {
+                        ih.saveSpetialistAndToken(response);
+                        ih.saveIsMedic(true);
                         new GetSpetialistData().execute();
-                    else {
-                        new InfoHandler(getContext()).savePatientAndToken(response);
+
+                    } else {
+                        ih.savePatientAndToken(response);
+                        ih.saveIsMedic(false);
                         new GetPatientSchedules().execute();
                     }
                 } else {
@@ -202,12 +208,19 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+
+    /********************************************************************************************/
+    /********************************************************************************************/
+    /********************************************************************************************/
+
+
+
     private class GetSpetialistData extends AsyncTask<Integer, Long, String>{
 
         @Override
         protected String doInBackground(Integer... params) {
-            Paciente paciente = new InfoHandler(getContext()).getPatientInfo();
-            return new MetadataInfo().requestGetSpetialistData(paciente.getEspecialista().getId(), getContext());
+            Especialista especialista = new InfoHandler(getContext()).getSpetialistInfo();
+            return new MetadataInfo().requestGetSpetialistData(especialista.getId(), getContext());
         }
 
         protected void onPostExecute(String response) {
@@ -238,10 +251,97 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
             else if(JSONBuilder.checkJsonStructure(response)) {
                 Log.i("MyTAG: ", response);
                 new InfoHandler(getContext()).saveSpetilistInfo(response);
-                new GetPatientSchedules().execute();
+                new GetPatientsBySpetialist().execute();
             }
         }
     }
+
+    private class GetPatientsBySpetialist extends AsyncTask<Integer, Long, String> {
+
+        protected String doInBackground(Integer... params) {
+            Especialista spetialist = new InfoHandler(getContext()).getSpetialistInfo();
+            String res = new MetadataInfo().requestGetPatientsBySpetialist(spetialist.getId());
+            return res;
+        }
+
+        protected void onPostExecute(String response) {
+            if(response==null || response.equals("")) {
+                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
+                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(response.contains("Error") && response.contains("Message")) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    int codeError = json.getInt("Error");
+                    String message = json.getString("Message");
+
+                    mErrorLogin.setText(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(JSONBuilder.checkJsonStructure(response)) {
+                new InfoHandler(getContext()).savePatiensSpetialist(response);
+                new GetSpetialistSchedules().execute();
+            }
+        }
+    }
+
+
+    private class GetSpetialistSchedules extends AsyncTask<Integer, Long, String> {
+
+        protected String doInBackground(Integer... params) {
+            Especialista spetialist = new InfoHandler(getContext()).getSpetialistInfo();
+            String res = new MetadataInfo().requestGetSpetialistSchedules(spetialist.getId());
+            return res;
+        }
+
+        protected void onPostExecute(String response) {
+            if(response==null || response.equals("")) {
+                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
+                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(response.contains("Error") && response.contains("Message")) {
+                try {
+                    JSONObject json = new JSONObject(response);
+                    int codeError = json.getInt("Error");
+                    String message = json.getString("Message");
+
+                    mErrorLogin.setText(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mProgressBar.setVisibility(View.GONE);
+                mLoginContent.setVisibility(View.VISIBLE);
+            }
+            else if(JSONBuilder.checkJsonStructure(response)) {
+                new InfoHandler(getContext()).savePatientSchedules(response);
+                goHomeActivity();
+            }
+        }
+    }
+
+
+
+    /********************************************************************************************/
+    /********************************************************************************************/
+    /********************************************************************************************/
+    /********************************************************************************************/
+
 
     private class GetPatientSchedules extends AsyncTask<Integer, Long, String> {
 

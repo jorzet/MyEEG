@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.Pager;
 import com.pt.myeeg.adapters.RoundedImageView;
+import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
 import com.pt.myeeg.services.android.CountDown;
@@ -80,8 +81,8 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
         setSupportActionBar(toolbar);
 
         mContext = getApplication();
+        isMedic = getCurrentUser();
 
-        getCurrentUser();
         mProfilePhoto = (RoundedImageView) findViewById(R.id.user_profile_photo);
         mLogout = (ImageView) findViewById(R.id.user_logout);
         mSettings = (ImageView) findViewById(R.id.user_settings);
@@ -97,13 +98,13 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
         }
         else{ // if is a patient
             mTabLayout.addTab(mTabLayout.newTab().setTag(HOME_TAG));
-            mTabLayout.addTab(mTabLayout.newTab().setTag(RECORD_TAG));
-            mTabLayout.addTab(mTabLayout.newTab().setTag(PROFILE_TAG));
+            mTabLayout.addTab(mTabLayout.newTab().setTag(SCHEDULE_TAG));
+            //mTabLayout.addTab(mTabLayout.newTab().setTag(SCHEDULE_TAG));
         }
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mAdapter = new Pager(getSupportFragmentManager(), mTabLayout.getTabCount());
+        mAdapter = new Pager(getApplicationContext(), getSupportFragmentManager(), mTabLayout.getTabCount());
 
         mLogout.setOnClickListener(this);
         mSettings.setOnClickListener(this);
@@ -167,9 +168,14 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
     public void onTabReselected(TabLayout.Tab tab) {}
 
     private void setIcons() {
-        mTabLayout.getTabAt(0).setIcon(mTabIcons[0]);
-        mTabLayout.getTabAt(1).setIcon(mTabIcons[1]);
-        mTabLayout.getTabAt(2).setIcon(mTabIcons[2]);
+        if(isMedic) {
+            mTabLayout.getTabAt(0).setIcon(mTabIcons[0]);
+            mTabLayout.getTabAt(1).setIcon(mTabIcons[1]);
+            mTabLayout.getTabAt(2).setIcon(mTabIcons[2]);
+        } else{
+            mTabLayout.getTabAt(0).setIcon(mTabIcons[0]);
+            mTabLayout.getTabAt(1).setIcon(mTabIcons[2]);
+        }
     }
 
     @Override
@@ -218,15 +224,22 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
 
     }
 
-    public void getCurrentUser(){
-
+    public boolean getCurrentUser(){
+        return new InfoHandler(mContext).getIsMedic();
     }
 
     private void getInfoUser(){
-        Paciente patient = new InfoHandler(getApplicationContext()).getPatientInfo();
-        if(patient!=null) {
-            mName.setText(patient.getName() + " " + patient.getFirstLastName() + " " + patient.getSecondLastName());
-            mAge.setText(patient.getAge() + " años");
+        if(isMedic) {
+            Especialista spetialist = new InfoHandler(getApplicationContext()).getSpetialistInfo();
+            if(spetialist != null){
+                mName.setText(spetialist.getName() + " " + spetialist.getFirstLastName() + " " + spetialist.getSecondLastName());
+            }
+        } else {
+            Paciente patient = new InfoHandler(getApplicationContext()).getPatientInfo();
+            if (patient != null) {
+                mName.setText(patient.getName() + " " + patient.getFirstLastName() + " " + patient.getSecondLastName());
+                mAge.setText(patient.getAge() + " años");
+            }
         }
     }
 

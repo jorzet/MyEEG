@@ -1,18 +1,15 @@
 package com.pt.myeeg.fragments.recording;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,20 +24,13 @@ import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.fragments.content.BaseFragment;
-import com.pt.myeeg.fragments.profile.ProfileFragment;
-import com.pt.myeeg.fragments.schedule.ScheduleFragment;
-import com.pt.myeeg.fragments.schedule.SchedulesFragment;
 import com.pt.myeeg.services.android.CountDown;
 import com.pt.myeeg.services.bluetoothservice.BluetoothService;
 import com.pt.myeeg.services.database.InfoHandler;
-import com.pt.myeeg.ui.activities.ContentActivity;
 import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static android.content.Context.ACTIVITY_SERVICE;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.

@@ -8,6 +8,7 @@ public class Paciente extends Usuario {
 
     private int age;
     private String padecimiento;
+
     private Especialista especialista;
 
     public Paciente(){}

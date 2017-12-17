@@ -13,8 +13,8 @@ import com.pt.myeeg.models.Usuario;
 public class MetadataInfo {
 
     //public static final String URL = "http://148.204.86.36:8084/WSEEG/terminalproject/electroencephalography";
-    //public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography";
-    public static final String URL = "http://192.168.1.68:8084/EEG_Final_1/terminalproject/electroencephalography";
+    public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography";
+    //public static final String URL = "http://192.168.0.126:8084/EEG_Final_1/terminalproject/electroencephalography";
 
     private static final String SING_IN = "/singin/";
     private static final String SING_UP_PATIENT = "/singuppatient/";
@@ -25,6 +25,7 @@ public class MetadataInfo {
     private static final String GET_PATIENTS_BY_SPETIALIST = "/getpatientsbyspetialist/";
     private static final String GET_PATIENT_SCHEDULE = "/getpatientschedule/";
     private static final String GET_PATIENT_SCHEDULES = "/getpatientschedules/";
+    private static final String GET_SPETIALIST_SCHEDULES = "/getallspetialistschedules/";
     private static final String GET_STUDY_BY_PATIENT = "/getstudybypatient/";
     private static final String GET_DEVICES_BY_PATIENT = "/getdevicesbypatient/";
     private static final String RESTART_PASSWORD = "/getrestorepassword/";
@@ -96,8 +97,11 @@ public class MetadataInfo {
     }
 
     public String requestGetPatientSchedules(int idPatient){
-        String url = MetadataInfo.URL + MetadataInfo.GET_PATIENT_SCHEDULES + idPatient;
         return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_PATIENT_SCHEDULES + idPatient);
+    }
+
+    public String requestGetSpetialistSchedules(int isSpetialist){
+        return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_SPETIALIST_SCHEDULES + isSpetialist);
     }
 
     public String requestGetStudyByPatient(int idPatient, int idSchedule){

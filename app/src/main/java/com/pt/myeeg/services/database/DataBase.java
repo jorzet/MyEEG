@@ -47,6 +47,7 @@ public class DataBase extends SQLiteOpenHelper{
     private static final String COL_ID_DEVICE = "idDevice";
     private static final String COL_DEVICE_NAME = "deviceName";
     private static final String COL_DEVICE_MAC = "deviceMAC";
+    private static final String IS_MEDIC = "isMedic";
 
     /* SQL instructions */
     private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS ";
@@ -145,6 +146,12 @@ public class DataBase extends SQLiteOpenHelper{
         editor.apply();
     }
 
+    public void storeJSONSpetialist(String json){
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(TABLE_SPETIALIST, json);
+        editor.apply();
+    }
+
     public void storeDevices(String json){
         SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(TABLE_DEVICE, json);
@@ -200,6 +207,11 @@ public class DataBase extends SQLiteOpenHelper{
         return prefs.getString(TABLE_PATIENT, null);
     }
 
+    public String getJsonSpetialist(){
+        SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(TABLE_SPETIALIST, null);
+    }
+
     public String getJsonUser(){
         SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(TABLE_USER, null);
@@ -247,6 +259,28 @@ public class DataBase extends SQLiteOpenHelper{
     public String getJsonCurrentSchedule(){
         SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(TABLE_CURRENT_SCHEDULE, null);
+    }
+
+    public void saveIsMedic(boolean isMedic){
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
+        editor.putBoolean(IS_MEDIC, isMedic);
+        editor.apply();
+    }
+
+    public boolean getIsMedic(){
+        SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(IS_MEDIC, false);
+    }
+
+    public void storeJsonPatientsSpetialist(String json){
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(TABLE_PATIENT, json);
+        editor.apply();
+    }
+
+    public String getJsonPatientsSpetialist(){
+        SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(TABLE_PATIENT, null);
     }
 
 }

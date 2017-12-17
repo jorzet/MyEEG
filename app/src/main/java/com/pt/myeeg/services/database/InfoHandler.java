@@ -12,7 +12,17 @@ import com.pt.myeeg.models.Usuario;
 import com.pt.myeeg.security.AccessToken;
 import com.pt.myeeg.services.webservice.JSONBuilder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 17/08/17.
@@ -33,6 +43,17 @@ public class InfoHandler {
         String token = JSONBuilder.getJsonFromJson(json, Palabras.TOKEN);
         AccessToken.setAccessToken(token, mContext);
     }
+
+    public void saveSpetialistAndToken(String json){
+        DataBase db = new DataBase(mContext);
+
+        String spetialist = JSONBuilder.getJsonFromJson(json, Palabras.USER);
+        db.storeJSONSpetialist(spetialist);
+
+        String token = JSONBuilder.getJsonFromJson(json, Palabras.TOKEN);
+        AccessToken.setAccessToken(token, mContext);
+    }
+
     public void saveDevices(String json){
         DataBase db = new DataBase(mContext);
         db.storeDevices(json);
@@ -57,18 +78,23 @@ public class InfoHandler {
         DataBase db = new DataBase(mContext);
 
         Especialista spetialist = (Especialista) JSONBuilder.getObjectFromJson(json, Especialista.class);
-        Paciente patient = new InfoHandler(mContext).getPatientInfo();
-        patient.setEspecialista(spetialist);
 
-        String newJson = JSONBuilder.bildJsonFromObject(patient);
 
-        db.storeJSONPatient(newJson);
+        String newJson = JSONBuilder.bildJsonFromObject(spetialist);
+
+        db.storeJSONSpetialist(newJson);
     }
 
     public Paciente getPatientInfo(){
         DataBase db = new DataBase(mContext);
         Log.i("MyTAG: ",db.getJsonPatient() );
         return (Paciente) JSONBuilder.getObjectFromJson(db.getJsonPatient(), Paciente.class);
+    }
+
+    public Especialista getSpetialistInfo(){
+        DataBase db = new DataBase(mContext);
+        Log.i("MyTAG: ",db.getJsonSpetialist() );
+        return (Especialista) JSONBuilder.getObjectFromJson(db.getJsonSpetialist(), Especialista.class);
     }
 
     public Usuario getUserInfo(){
@@ -102,6 +128,54 @@ public class InfoHandler {
             return citas;
         }
         return null;
+    }
+
+    public void savePatiensSpetialist(String jsonPatients){
+        DataBase db = new DataBase(mContext);
+        db.storeJsonPatientsSpetialist(jsonPatients);
+    }
+
+    public ArrayList<Paciente> getPatientsSpetialist(){
+        DataBase db = new DataBase(mContext);
+        String patientsJson = db.getJsonPatientsSpetialist();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
+        ArrayList<Paciente> patients = new ArrayList<>();
+        if (objects != null) {
+            for (int i = 0; i < objects.size(); i++)
+                patients.add((Paciente) objects.get(i));
+            return patients;
+        }
+        return null;
+    }
+
+
+
+    public int getPatientsCount(){
+        DataBase db = new DataBase(mContext);
+        String patientsJson = db.getJsonPatientsSpetialist();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
+        return objects.size();
+    }
+
+    public int getSpetialistSchedulesCount(){
+        DataBase db = new DataBase(mContext);
+        String schedules = db.getJsonPatientSchedules();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+        return objects.size();
+    }
+
+    public int getPatientSchedulesCount(){
+        DataBase db = new DataBase(mContext);
+        String schedules = db.getJsonPatientSchedules();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+        return objects.size();
+    }
+
+    public String getLastPatientSchedule(){
+        DataBase db = new DataBase(mContext);
+        String schedules = db.getJsonPatientSchedules();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+        return ((Cita)objects.get(objects.size()-1)).getFecha();
     }
 
     public ArrayList<Dispositivo> getPatientDevices(String schedules, Class clase){
@@ -170,5 +244,15 @@ public class InfoHandler {
     public String getExtraStored(String TAG){
         DataBase db = new DataBase(mContext);
         return db.getExtra(TAG);
+    }
+
+    public void saveIsMedic(boolean isMedic){
+        DataBase db = new DataBase(mContext);
+        db.saveIsMedic(isMedic);
+    }
+
+    public boolean getIsMedic(){
+        DataBase db = new DataBase(mContext);
+        return db.getIsMedic();
     }
 }
