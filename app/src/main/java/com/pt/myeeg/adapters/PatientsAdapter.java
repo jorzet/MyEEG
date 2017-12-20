@@ -71,12 +71,12 @@ public class PatientsAdapter extends BaseAdapter{
     private class ViewHolder{
         RoundedImageView mProfilePhoto;
         TextView mPatientName;
-        Button mViewResults;
+        //Button mViewResults;
 
         public ViewHolder(View v) {
             mProfilePhoto = (RoundedImageView) v.findViewById(R.id.profile_photo);
             mPatientName = (TextView) v.findViewById(R.id.name_patient);
-            mViewResults = (Button) v.findViewById(R.id.view_results);
+            //mViewResults = (Button) v.findViewById(R.id.view_results);
         }
 
     }

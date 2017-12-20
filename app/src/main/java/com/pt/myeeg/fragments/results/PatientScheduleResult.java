@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.pt.myeeg.fragments.content.BaseFragment;
 
 /**
@@ -13,6 +15,10 @@ import com.pt.myeeg.fragments.content.BaseFragment;
  */
 
 public class PatientScheduleResult extends BaseFragment{
+
+    private LineChart mSecondPlot;
+    //private TextView
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

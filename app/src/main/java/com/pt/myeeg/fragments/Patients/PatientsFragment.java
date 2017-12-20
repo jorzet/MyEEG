@@ -1,6 +1,9 @@
 package com.pt.myeeg.fragments.Patients;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,10 @@ import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.PatientsAdapter;
 import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.models.Paciente;
+import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.services.database.InfoHandler;
+import com.pt.myeeg.ui.activities.ContentResultActivity;
+import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 
 import java.util.ArrayList;
 
@@ -21,6 +27,8 @@ import java.util.ArrayList;
  */
 
 public class PatientsFragment extends BaseFragment implements AdapterView.OnItemClickListener{
+
+    public static final String PATIENT_NAME = "patient_name";
 
     private ArrayList<Paciente> mPatients;
 
@@ -55,9 +63,11 @@ public class PatientsFragment extends BaseFragment implements AdapterView.OnItem
             listView.setVisibility(View.VISIBLE);
             PatientsAdapter adapter = new PatientsAdapter(getContext(), mPatients);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(this);
         }
         return rootView;
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -70,7 +80,20 @@ public class PatientsFragment extends BaseFragment implements AdapterView.OnItem
 
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        InfoHandler myHandler = new InfoHandler(getContext());
 
+        Intent intent = new Intent(getActivity(), ContentResultActivity.class);
+        Paciente patient = (Paciente) adapterView.getItemAtPosition(position);
+        myHandler.saveExtraFromActivity(PatientsFragment.PATIENT_NAME, patient.getName() + " " + patient.getFirstLastName() + " " + patient.getSecondLastName());
+
+        TextView sharedTextView = (TextView) view.findViewById(R.id.name_patient);
+        Pair<View, String> p1 = Pair.create((View) sharedTextView, "p");
+
+        ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), p1);
+
+        startActivity(intent, transitionActivityOptions.toBundle());
     }
+
+
 }

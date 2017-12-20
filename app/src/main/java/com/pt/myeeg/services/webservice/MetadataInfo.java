@@ -12,9 +12,10 @@ import com.pt.myeeg.models.Usuario;
 
 public class MetadataInfo {
 
-    //public static final String URL = "http://148.204.86.36:8084/WSEEG/terminalproject/electroencephalography";
-    public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography";
-    //public static final String URL = "http://192.168.0.126:8084/EEG_Final_1/terminalproject/electroencephalography";
+    //public static final String URL = "http://148.204.86.36:8084/WSEEG/terminalproject/electroencephalography"; // SEPI UPIITA network
+    //public static final String URL = "http://10.7.5.120:8084/WSEEG/terminalproject/electroencephalography";// AMCO network
+    public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography"; // Home network
+    //public static final String URL = "http://192.168.43.74:8084/EEG_Final_1/terminalproject/electroencephalography"; // Smartphone network
 
     private static final String SING_IN = "/singin/";
     private static final String SING_UP_PATIENT = "/singuppatient/";
