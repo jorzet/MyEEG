@@ -2,51 +2,116 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/appointent"
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:text="Crear cita"
-        android:textStyle="bold"/>
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/appointent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:text="Crear cita"
+                android:textStyle="bold"/>
 
-    <Spinner
-        android:id="@+id/choose_petient_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/appointent"
-        android:layout_centerHorizontal="true"/>
+            <Spinner
+                android:id="@+id/choose_petient_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/appointent"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:id="@+id/select_hour_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_petient_spinner"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Seleccione la hora de la cita"
+                android:textStyle="bold"/>
 
-    <TimePicker
-        android:id="@+id/choose_time_picker"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/choose_petient_spinner"/>
+            <TextView
+                android:id="@+id/hour_minute_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/select_hour_text"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Horas          Minutos                     "/>
+
+            <TimePicker
+                android:id="@+id/choose_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/hour_minute_text"
+                android:timePickerMode="spinner"/>
+
+            <TextView
+                android:id="@+id/select_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_time_picker"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Seleccione la hora de la cita"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/day_month_year_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/select_date_text"
+                android:layout_centerHorizontal="true"
+                android:text="Dia                Mes               Año  "/>
 
 
-    <DatePicker
-        android:id="@+id/choose_date_picker"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/choose_time_picker"
-        android:layout_centerHorizontal="true" />
+            <DatePicker
+                android:id="@+id/choose_date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/day_month_year_text"
+                android:layout_centerHorizontal="true"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/appoint_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/choose_date_picker"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
-        android:backgroundTint="@color/colorGreenButton"
-        android:text="Crear cita"
-        android:textColor="@color/blanco"/>
+            <TextView
+                android:id="@+id/select_channels_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_date_picker"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Seleccione los canales a usar"
+                android:textStyle="bold"/>
 
+            <com.pt.myeeg.adapters.CalibrationCanvas
+                android:id="@+id/choose_channels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_10_20_system"
+                android:layout_below="@+id/select_channels_text"
+                android:layout_centerHorizontal="true"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appoint_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/choose_channels"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:padding="12dp"
+                android:backgroundTint="@color/colorGreenButton"
+                android:text="Crear cita"
+                android:textColor="@color/blanco"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

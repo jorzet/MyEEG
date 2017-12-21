@@ -42,7 +42,7 @@
     <string name="email_user">Email</string>
     <string name="password_user">Contraseña</string>
     <string name="password_confirmation_user">Confirmación</string>
-    <string name="singup">Registrarse</string>
+    <string name="singup">Registrar paciente</string>
     <string name="age_user">Edad</string>
     <string name="illness_user">Enfermedad</string>
     <string name="are_you_teacher">¿Usted es Medico o Especialista?</string>
