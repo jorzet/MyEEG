@@ -22,7 +22,7 @@ public class DoSingUpTask extends AbstractRequestTask {
 
     @Override
     protected String getUrl() {
-        return MetadataInfo.URL + MetadataInfo.SING_UP_PATIENT + JSONBuilder.bildSingupJson(mUser).replace("{","%7B").replace("}","%7D");
+        return MetadataInfo.URL + MetadataInfo.SING_UP_PATIENT + JSONBuilder.buildSingupJson(mUser);
     }
 
     @Override
