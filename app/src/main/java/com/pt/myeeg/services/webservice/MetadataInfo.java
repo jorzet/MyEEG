@@ -31,6 +31,7 @@ public class MetadataInfo {
     public static final String GET_DEVICES_BY_PATIENT = "/getdevicesbypatient/";
     public static final String RESTART_PASSWORD = "/getrestorepassword/";
     public static final String APPOINTMENT_SCHEDULE = "/scheduleappointment/";
+    public static final String GET_GENERAL_RESULTS = "/getgeneralresultsbyschedule/";
 
     public static String requestLogin(String url, Context context){
         /*TODO obtain the hash password*/
@@ -57,7 +58,7 @@ public class MetadataInfo {
     public String requestSingupSpetialist(Especialista spetialist){
         return HttpRequest.sendGetRequest(MetadataInfo.URL +
                 MetadataInfo.SING_UP_SPETIALIST +
-                JSONBuilder.bildSingupJson(spetialist));
+                JSONBuilder.buildSingupJson(spetialist));
     }
 
     public String requestGetPatientData(int idPatient, Context context){
@@ -110,5 +111,14 @@ public class MetadataInfo {
         else
             return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
 
+    }
+
+    public static String requestGetGeneralResults(String url, Context context) {
+        if(HttpRequest.isConnected(context)) {
+            Log.d("Generalresults","sendGetrequest");
+            return HttpRequest.sendGetRequest(url);
+        }
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
     }
 }
