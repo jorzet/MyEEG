@@ -1,30 +1,24 @@
 package com.pt.myeeg.fragments.schedule;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.SchedulesAdapter;
 import com.pt.myeeg.fragments.content.BaseFragment;
-import com.pt.myeeg.fragments.results.GeneralResults;
+import com.pt.myeeg.fragments.results.GeneralResultsFragment;
 import com.pt.myeeg.models.Cita;
-import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.services.database.InfoHandler;
-import com.pt.myeeg.ui.activities.ContentScheduleActivity;
-import com.pt.myeeg.ui.dialogs.ErrorDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.pt.myeeg.models.Palabras.ID_PATIENT;
 
@@ -42,6 +36,7 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
     private ListView listView;
     private TextView mErrorSchedule;
     private ArrayList<String> stringScheduleList;
+    private List<Integer> mScheduleIds;
     private ArrayAdapter<String> adapter;
 
     private ArrayList<Cita> citas;
@@ -88,6 +83,7 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
 
     private void setData() {
         stringScheduleList = new ArrayList<>();
+        mScheduleIds = new ArrayList<>();
         String savedSchedules = new InfoHandler(getContext()).getPatientSchedulesJson();
         if(!savedSchedules.contains("Error")) {
             citas = new InfoHandler(getContext()).getPatientSchedules(savedSchedules, Cita.class);
@@ -95,6 +91,7 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
                 for (int i = 0; i < citas.size(); i++) {
                     if(citas.get(i).getPaciente().getId() == idPatient) {
                         stringScheduleList.add(citas.get(i).getDayAndMonthFormath());
+                        mScheduleIds.add(citas.get(i).getFolioCita());
                     }
                 }
             }
@@ -108,10 +105,12 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        int idSchedule = mScheduleIds.get(position);
+        new InfoHandler(getContext()).saveExtraFromActivity(Palabras.SCHEDULE_ID, idSchedule + "");
         goGeneralResultsFragment();
     }
 
     private void goGeneralResultsFragment(){
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container_results, new GeneralResults()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container_results, new GeneralResultsFragment()).commit();
     }
 }
