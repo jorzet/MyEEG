@@ -88,6 +88,7 @@ public class Palabras {
 
 
     /* to schedule an appointment */
+    public static final String OK = "OK";
     public static final String SELECT_A_PATIENT = "Seleccione un paciente";
     public static final String WITHOUT_PATIENTS= "Sin pacientes";
     public static final String WITHOUT_OBSERVATIONS = "Sin observaciones";
