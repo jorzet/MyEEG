@@ -20,8 +20,8 @@ public class Usuario {
     public Usuario(){}
 
     public void finalize() throws Throwable {
-
     }
+
     public int getId(){
         return this.idUsuario;
     }
@@ -37,9 +37,11 @@ public class Usuario {
     public String getFirstLastName(){
         return this.fistLastName;
     }
+
     public String getSecondLastName(){
-        return this.fistLastName;
+        return this.secondLastName;
     }
+
     public String getName(){
         return this.name;
     }
@@ -51,15 +53,23 @@ public class Usuario {
     public byte [] getPrifilePhoto(){
         return this.profilePhoto;
     }
+
     public String getGender(){
         return this.gender;
     }
 
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setId(int idUsuario){
         this.idUsuario = idUsuario;
     }
-
+    /**
+     *
+     * @param tipoUsuario
+     */
     public void setTipoUsuario(String tipoUsuario){
         this.tipoUsuario = tipoUsuario;
     }
@@ -110,6 +120,10 @@ public class Usuario {
         this.profilePhoto = profilePhoto;
     }
 
+    /**
+     *
+     * @param gender
+     */
     public void setGender(String gender){
         this.gender=gender;
     }
