@@ -80,7 +80,7 @@ public class InfoHandler {
         Especialista spetialist = (Especialista) JSONBuilder.getObjectFromJson(json, Especialista.class);
 
 
-        String newJson = JSONBuilder.bildJsonFromObject(spetialist);
+        String newJson = JSONBuilder.buildJsonFromObject(spetialist);
 
         db.storeJSONSpetialist(newJson);
     }
@@ -254,5 +254,15 @@ public class InfoHandler {
     public boolean getIsMedic(){
         DataBase db = new DataBase(mContext);
         return db.getIsMedic();
+    }
+
+    public void saveGeneralResults(String result) {
+        DataBase db = new DataBase(mContext);
+        db.saveGeneralResults(result);
+    }
+
+    public String getJsonGeneralresults() {
+        DataBase db = new DataBase(mContext);
+        return db.getGeneralResults();
     }
 }

@@ -33,6 +33,7 @@ public class DataBase extends SQLiteOpenHelper{
     private static final String TABLE_STUDY = "Estudio";
     private static final String TABLE_DEVICE = "Dispositivo";
     private static final String TABLE_CURRENT_SCHEDULE = "CitaActual";
+    private static final String TABLE_GENERAL_RESULTS = "ResultadosGenerales";
 
     /* Columns name */
     private static final String COL_ID_PATIENT = "idPaciente";
@@ -281,6 +282,18 @@ public class DataBase extends SQLiteOpenHelper{
     public String getJsonPatientsSpetialist(){
         SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(TABLE_PATIENT, null);
+    }
+
+
+    public void saveGeneralResults(String generalResults) {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(TABLE_GENERAL_RESULTS, generalResults);
+        editor.apply();
+    }
+
+    public String getGeneralResults() {
+        SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(TABLE_GENERAL_RESULTS, null);
     }
 
 }
