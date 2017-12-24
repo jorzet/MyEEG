@@ -232,6 +232,31 @@ public class ContentRequestManager {
         }
     }
 
+    public void requestGetGeneralResults(int scheduleId, final OnGetGeneralResultsListener onGetGeneralResultsListener) {
+        GetGeneralResultTask mGeneralResultsTask = new GetGeneralResultTask(mContext, scheduleId);
+
+
+        mGeneralResultsTask.setOnRequestSuccess(new AbstractRequestTask.OnRequestListenerSuccess() {
+            @Override
+            public void onSuccess(Object result) {
+                onGetGeneralResultsListener.onGetGeneralresultsLoaded((String)result);
+            }
+        });
+
+        mGeneralResultsTask.setOnRequestFailed(new AbstractRequestTask.OnRequestListenerFailed() {
+            @Override
+            public void onFailed(Object result) {
+                onGetGeneralResultsListener.onGetGeneralresultsError((String)result);
+            }
+        });
+
+        try {
+            mGeneralResultsTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public interface OnDoLogInListener{
         void onDoLogInLoaded(String result);
         void onDoLogInError(String throwable);
@@ -270,5 +295,10 @@ public class ContentRequestManager {
     public interface  OnScheduleAppointmentListener{
         void onScheduleAppointmentLoaded(String result);
         void onScheduleAppointmentError(String throwable);
+    }
+
+    public interface OnGetGeneralResultsListener {
+        void onGetGeneralresultsLoaded(String result);
+        void onGetGeneralresultsError(String throwable);
     }
 }
