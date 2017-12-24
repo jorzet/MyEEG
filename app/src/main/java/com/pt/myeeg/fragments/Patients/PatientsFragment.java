@@ -22,6 +22,8 @@ import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 
 import java.util.ArrayList;
 
+import static com.pt.myeeg.models.Palabras.ID_PATIENT;
+
 /**
  * Created by Jorge Zepeda Tinoco on 16/12/17.
  */
@@ -55,7 +57,7 @@ public class PatientsFragment extends BaseFragment implements AdapterView.OnItem
 
         loadPatients();
         if(mPatients.isEmpty()) {
-            mErrorPatients.setText("Aun  no tienes pacientes");
+            mErrorPatients.setText(Palabras.WITHOUT_PATIENTS);
             listView.setVisibility(View.GONE);
             mErrorPatients.setVisibility(View.VISIBLE);
         } else {
@@ -86,6 +88,7 @@ public class PatientsFragment extends BaseFragment implements AdapterView.OnItem
         Intent intent = new Intent(getActivity(), ContentResultActivity.class);
         Paciente patient = (Paciente) adapterView.getItemAtPosition(position);
         myHandler.saveExtraFromActivity(PatientsFragment.PATIENT_NAME, patient.getName() + " " + patient.getFirstLastName() + " " + patient.getSecondLastName());
+        myHandler.saveExtraFromActivity(ID_PATIENT, patient.getId() + "");
 
         TextView sharedTextView = (TextView) view.findViewById(R.id.name_patient);
         Pair<View, String> p1 = Pair.create((View) sharedTextView, "p");
