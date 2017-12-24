@@ -192,7 +192,10 @@ public class AppointmentScheduleFragment extends BaseContentFragment {
 
     private void doAppointmentSchedule(){
         String patient = mChoosePatient.getSelectedItem().toString();
-        int patientId = mPatientIds.get(mChoosePatient.getSelectedItemPosition()-1);
+        int pos = mChoosePatient.getSelectedItemPosition();
+        int patientId = 0;
+        if(pos > 0)
+            patientId = mPatientIds.get(pos-1);
 
         int day = mChooseDate.getDayOfMonth();
         int month = mChooseDate.getMonth() + 1;
@@ -217,39 +220,47 @@ public class AppointmentScheduleFragment extends BaseContentFragment {
 
         if (!patient.equals(Palabras.WITHOUT_PATIENTS)) {
             if (!patient.equals(Palabras.SELECT_A_PATIENT)) {
+                Log.d("Appointment","count: "+count);
                 if(count > 0){
-                    if (observations.equals("")) {
-                        observations = Palabras.WITHOUT_OBSERVATIONS;
-                    }
 
-                    Log.d("Appointment", "entra");
-                    Log.d("Appointment", "paciente: "+patientId+" -- "+patient);
-                    Log.d("Appointment", "fecha: " + selectedDate);
-                    Log.d("Appointment", "hora: " + selectedHour);
-                    Log.d("Appointment", "duracion: " + selectedDuration);
-                    Log.d("Appointment", "electrodos: ");
-                    String[] electrodes = new String[channels.size()-2];
-                    for (int j = 0; j < channels.size(); j++) {
-                        if(!channels.get(j).equals("A1") && !channels.get(j).equals("A2")) {
-                            Log.d("Appointment", channels.get(j));
-                            electrodes[j] = channels.get(j);
+                    if(electrodes[8] == CalibrationCanvas.ELECTRODE_GREEN && electrodes[14]==CalibrationCanvas.ELECTRODE_GREEN) {
+                        if (observations.equals("")) {
+                            observations = Palabras.WITHOUT_OBSERVATIONS;
                         }
+
+                        Log.d("Appointment", "entra");
+                        Log.d("Appointment", "paciente: " + patientId + " -- " + patient);
+                        Log.d("Appointment", "fecha: " + selectedDate);
+                        Log.d("Appointment", "hora: " + selectedHour);
+                        Log.d("Appointment", "duracion: " + selectedDuration);
+                        Log.d("Appointment", "electrodos: ");
+                        String[] electrodes = new String[channels.size()-2];
+                        int g = 0;
+                        for (int j = 0; j < channels.size(); j++) {
+                            if (!channels.get(j).equals("A1") && !channels.get(j).equals("A2")) {
+                                Log.d("Appointment", channels.get(j));
+                                electrodes[g] = channels.get(j);
+                                g++;
+                            }
+                        }
+                        Log.d("Appointment", "observaciones: " + observations);
+
+
+                        Cita schedule = new Cita();
+                        Paciente patientO = new Paciente();
+                        patientO.setId(patientId);
+                        schedule.setPaciente(patientO);
+
+                        schedule.setDuracion(selectedDuration);
+                        schedule.setFecha(selectedDate);
+                        schedule.setHora(selectedHour);
+                        schedule.setElectrodos(electrodes);
+                        schedule.setObservaciones(observations);
+
+                        requestScheduleAppointment(schedule);
+                    } else {
+                        Log.d("Appointment","Tiene que seleccionar los electrodos de referencia");
                     }
-                    Log.d("Appointment", "observaciones: "+observations);
-
-
-                    Cita schedule = new Cita();
-                    Paciente patientO = new Paciente();
-                    patientO.setId(patientId);
-                    schedule.setPaciente(patientO);
-
-                    schedule.setDuracion(selectedDuration);
-                    schedule.setFecha(selectedDate);
-                    schedule.setHora(selectedHour);
-                    schedule.setElectrodos(electrodes);
-                    schedule.setObservaciones(observations);
-
-                    requestScheduleAppointment(schedule);
 
                 } else {
                     Log.d("Appointment","seleccione los electrodos a usar");
@@ -307,7 +318,7 @@ public class AppointmentScheduleFragment extends BaseContentFragment {
     @Override
     public void onScheduleAppointmentSuccess(String response) {
         super.onScheduleAppointmentSuccess(response);
-        Log.d("Appointment",response);
+        Log.d("Appointment2",response);
         resetView();
         showDialog(response);
     }
