@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
+import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
  * Created by Jorge Zepeda Tinoco on 7/2/2017.
  */
 
-public class SinginFragment extends Fragment implements View.OnClickListener{
+public class SinginFragment extends BaseContentFragment implements View.OnClickListener{
 
     /* For the View */
     private Button mLogin;
@@ -121,7 +122,8 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
         String password = mPassword.getText().toString();
         if(!email.equals("") && !password.equals("")) {
             mErrorLogin.setText("");
-            new DoLogIn().execute(email, password);
+            requestDoLogIn(email,password);
+            //new DoLogIn().execute(email, password);
             mLoginContent.setVisibility(View.GONE);
             mProgressBar.setVisibility(View.VISIBLE);
         }
@@ -151,282 +153,150 @@ public class SinginFragment extends Fragment implements View.OnClickListener{
                 .commit();
     }
 
-    private class DoLogIn extends AsyncTask<String, Long, String> {
-        protected String doInBackground(String... data) {
-            return new MetadataInfo().requestLogin(data[0], data[1], getContext());
-        }
 
-        protected void onPostExecute(String response) {
 
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
+
+    /********************************************************************************************/
+    /********************************************************************************************/
+    /********************************************************************************************/
+
+
+    @Override
+    public void onDoLogInSuccess(String response) {
+        super.onDoLogInSuccess(response);
+        Log.i("MyTAG: ","login:" + response);
+
+        new InfoHandler(getContext()).saveUserAndToken(response);
+        Usuario user = new InfoHandler(getContext()).getUserInfo();
+        if(user != null){
+            InfoHandler ih = new InfoHandler(getContext());
+            if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE)) {
+                ih.saveSpetialistAndToken(response);
+                ih.saveIsMedic(true);
+                requestGetSpetialistData();
+                //new GetSpetialistData().execute();
+
+            } else {
+                ih.savePatientAndToken(response);
+                ih.saveIsMedic(false);
+                requestGetPatientSchedules();
+                //new GetPatientSchedules().execute();
             }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                Log.i("MyTAG: ","login:" + response);
-
-                new InfoHandler(getContext()).saveUserAndToken(response);
-                Usuario user = new InfoHandler(getContext()).getUserInfo();
-                if(user != null){
-                    InfoHandler ih = new InfoHandler(getContext());
-                    if(user.getTipoUsuario().equals(Palabras.SPETIALIST_TYPE)) {
-                        ih.saveSpetialistAndToken(response);
-                        ih.saveIsMedic(true);
-                        new GetSpetialistData().execute();
-
-                    } else {
-                        ih.savePatientAndToken(response);
-                        ih.saveIsMedic(false);
-                        new GetPatientSchedules().execute();
-                    }
-                } else {
-                    mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                    mProgressBar.setVisibility(View.GONE);
-                    mLoginContent.setVisibility(View.VISIBLE);
-                    new InfoHandler(getContext()).removePatientAndToken();
-                }
-            }
+        } else {
+            mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+            mProgressBar.setVisibility(View.GONE);
+            mLoginContent.setVisibility(View.VISIBLE);
+            new InfoHandler(getContext()).removePatientAndToken();
         }
     }
 
-
-    /********************************************************************************************/
-    /********************************************************************************************/
-    /********************************************************************************************/
-
-
-
-    private class GetSpetialistData extends AsyncTask<Integer, Long, String>{
-
-        @Override
-        protected String doInBackground(Integer... params) {
-            Especialista especialista = new InfoHandler(getContext()).getSpetialistInfo();
-            return new MetadataInfo().requestGetSpetialistData(especialista.getId(), getContext());
-        }
-
-        protected void onPostExecute(String response) {
-
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                Log.i("MyTAG: ", response);
-                new InfoHandler(getContext()).saveSpetilistInfo(response);
-                new GetPatientsBySpetialist().execute();
-            }
-        }
+    @Override
+    public void onDoLogInFail(String response) {
+        super.onDoLogInFail(response);
+        showErrorMessage(response);
     }
 
-    private class GetPatientsBySpetialist extends AsyncTask<Integer, Long, String> {
+    @Override
+    public void onGetSpetialistDataSuccess(String response) {
+        super.onGetSpetialistDataSuccess(response);
+        Log.i("MyTAG: ", response);
+        new InfoHandler(getContext()).saveSpetilistInfo(response);
+        requestGetPatientsBySpetialist();
+        //new GetPatientsBySpetialist().execute();
+    }
 
-        protected String doInBackground(Integer... params) {
-            Especialista spetialist = new InfoHandler(getContext()).getSpetialistInfo();
-            String res = new MetadataInfo().requestGetPatientsBySpetialist(spetialist.getId());
-            return res;
-        }
+    @Override
+    public void onGetSpetialistDataFail(String response) {
+        super.onGetSpetialistDataFail(response);
+        showErrorMessage(response);
+    }
 
-        protected void onPostExecute(String response) {
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
+    @Override
+    public void onGetSpetialistSchedulesSuccess(String response) {
+        super.onGetSpetialistSchedulesSuccess(response);
+        new InfoHandler(getContext()).savePatientSchedules(response);
+        goHomeActivity();
+    }
 
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                new InfoHandler(getContext()).savePatiensSpetialist(response);
-                new GetSpetialistSchedules().execute();
-            }
-        }
+    @Override
+    public void onGetSpetialistSchedulesFail(String response) {
+        super.onGetSpetialistSchedulesFail(response);
+        showErrorMessage(response);
+    }
+
+    @Override
+    public void onGetPatientsBySpetialistSuccess(String response) {
+        super.onGetPatientsBySpetialistSuccess(response);
+        new InfoHandler(getContext()).savePatiensSpetialist(response);
+        requestGetSpetialistSchedules();
+        //new GetSpetialistSchedules().execute();
+    }
+
+    @Override
+    public void onGetPatientsBySpetialistFail(String response) {
+        super.onGetPatientsBySpetialistFail(response);
+        showErrorMessage(response);
+    }
+
+    @Override
+    public void onGetPatientSchedulesSuccess(String response) {
+        super.onGetPatientSchedulesSuccess(response);
+        new InfoHandler(getContext()).savePatientSchedules(response);
+        requestGetDevices();
+        //new GetDevices().execute();
+    }
+
+    @Override
+    public void onGetPatientSchedulesFail(String response) {
+        super.onGetPatientSchedulesFail(response);
+        showErrorMessage(response);
+    }
+
+    @Override
+    public void onGetDevicesSuccess(String response) {
+        super.onGetDevicesSuccess(response);
+
+        System.out.println("response: "+response);
+        new InfoHandler(getContext()).saveDevices(response);
+        String savedDevices = new InfoHandler(getContext()).getPatientDevicesJson();
+        ArrayList<Dispositivo> dispositivos = new InfoHandler(getContext()).getPatientDevices(savedDevices, Dispositivo.class);
+        if(dispositivos != null)
+            System.out.println("tamaño de arreglo: "+dispositivos.size());
+        else
+            System.out.println("tamaño de arreglo: "+0);
+        goHomeActivity();
+    }
+
+    @Override
+    public void onGetDevicesFail(String response) {
+        super.onGetDevicesFail(response);
+        showErrorMessage(response);
     }
 
 
-    private class GetSpetialistSchedules extends AsyncTask<Integer, Long, String> {
-
-        protected String doInBackground(Integer... params) {
-            Especialista spetialist = new InfoHandler(getContext()).getSpetialistInfo();
-            String res = new MetadataInfo().requestGetSpetialistSchedules(spetialist.getId());
-            return res;
+    private void showErrorMessage(String response) {
+        if(response==null || response.equals("")) {
+            mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+            mProgressBar.setVisibility(View.GONE);
+            mLoginContent.setVisibility(View.VISIBLE);
         }
-
-        protected void onPostExecute(String response) {
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                new InfoHandler(getContext()).savePatientSchedules(response);
-                goHomeActivity();
-            }
+        else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
+            mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
+            mProgressBar.setVisibility(View.GONE);
+            mLoginContent.setVisibility(View.VISIBLE);
         }
-    }
+        else if(response.contains("Error") && response.contains("Message")) {
+            try {
+                JSONObject json = new JSONObject(response);
+                int codeError = json.getInt("Error");
+                String message = json.getString("Message");
 
-
-
-    /********************************************************************************************/
-    /********************************************************************************************/
-    /********************************************************************************************/
-    /********************************************************************************************/
-
-
-    private class GetPatientSchedules extends AsyncTask<Integer, Long, String> {
-
-        protected String doInBackground(Integer... params) {
-            Paciente paciente = new InfoHandler(getContext()).getPatientInfo();
-            String res = new MetadataInfo().requestGetPatientSchedules(paciente.getId());
-            return res;
-        }
-
-        protected void onPostExecute(String response) {
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
+                mErrorLogin.setText(message);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                new InfoHandler(getContext()).savePatientSchedules(response);
-                new GetDevices().execute();
-            }
-        }
-    }
-
-    private class GetDevices extends AsyncTask<Integer, Long, String> {
-
-        protected String doInBackground(Integer... params) {
-
-            Paciente paciente = new InfoHandler(getContext()).getPatientInfo();
-            System.out.println("id: "+paciente.getId()+"-------------------------------");
-            String res = new MetadataInfo().requestGetDevicesByPatient(paciente.getId());
-            return res;
-        }
-
-        protected void onPostExecute(String response) {
-            if(response==null || response.equals("")) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorLogin.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorLogin.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mLoginContent.setVisibility(View.VISIBLE);
-            }
-            else if(JSONBuilder.checkJsonStructure(response)) {
-                System.out.println("response: "+response);
-                new InfoHandler(getContext()).saveDevices(response);
-                String savedDevices = new InfoHandler(getContext()).getPatientDevicesJson();
-                ArrayList<Dispositivo> dispositivos = new InfoHandler(getContext()).getPatientDevices(savedDevices, Dispositivo.class);
-                if(dispositivos != null)
-                    System.out.println("tamaño de arreglo: "+dispositivos.size());
-                else
-                    System.out.println("tamaño de arreglo: "+0);
-                goHomeActivity();
-            }
+            mProgressBar.setVisibility(View.GONE);
+            mLoginContent.setVisibility(View.VISIBLE);
         }
     }
 }
