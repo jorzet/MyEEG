@@ -34,6 +34,7 @@ public class DataBase extends SQLiteOpenHelper{
     private static final String TABLE_DEVICE = "Dispositivo";
     private static final String TABLE_CURRENT_SCHEDULE = "CitaActual";
     private static final String TABLE_GENERAL_RESULTS = "ResultadosGenerales";
+    private static final String TABLE_SEGMENT_RESULTS = "ResultadosPorSegmento";
 
     /* Columns name */
     private static final String COL_ID_PATIENT = "idPaciente";
@@ -294,6 +295,17 @@ public class DataBase extends SQLiteOpenHelper{
     public String getGeneralResults() {
         SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
         return prefs.getString(TABLE_GENERAL_RESULTS, null);
+    }
+
+    public void saveSegmentResults(String segmentResults) {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE).edit();
+        editor.putString(TABLE_SEGMENT_RESULTS, segmentResults);
+        editor.apply();
+    }
+
+    public String getSegmentResults() {
+        SharedPreferences prefs = mContext.getSharedPreferences(DATABASE_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(TABLE_SEGMENT_RESULTS, null);
     }
 
 }

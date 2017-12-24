@@ -261,8 +261,19 @@ public class InfoHandler {
         db.saveGeneralResults(result);
     }
 
-    public String getJsonGeneralresults() {
+    public String getJsonGeneralResults() {
         DataBase db = new DataBase(mContext);
         return db.getGeneralResults();
     }
+
+    public void saveSegmentResults(String result) {
+        DataBase db = new DataBase(mContext);
+        db.saveSegmentResults(result);
+    }
+
+    public String getJsonSegmentResults() {
+        DataBase db = new DataBase(mContext);
+        return db.getSegmentResults();
+    }
+
 }
