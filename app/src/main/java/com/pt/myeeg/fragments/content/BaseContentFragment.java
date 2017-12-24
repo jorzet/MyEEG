@@ -138,6 +138,20 @@ public abstract class BaseContentFragment extends BaseFragment {
         });
     }
 
+    protected void requestGetGeneralResults(int scheduleId) {
+        mContentRequestManager.requestGetGeneralResults(scheduleId, new ContentRequestManager.OnGetGeneralResultsListener() {
+            @Override
+            public void onGetGeneralresultsLoaded(String result) {
+                onGetGeneralResultsSuccess(result);
+            }
+
+            @Override
+            public void onGetGeneralresultsError(String throwable) {
+                onGetGeneralResultsFail(throwable);
+            }
+        });
+    }
+
     public void onDoLogInSuccess(String response) {
     }
 
