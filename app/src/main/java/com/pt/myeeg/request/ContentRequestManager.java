@@ -45,6 +45,31 @@ public class ContentRequestManager {
         }
     }
 
+    public void requestSingUpPatient(Paciente patient, final OnSingUpPatientListener onSingUpPatientListener){
+        DoSingUpTask mDoSingUpTask = new DoSingUpTask(mContext, patient);
+
+        mDoSingUpTask.setOnRequestSuccess(new AbstractRequestTask.OnRequestListenerSuccess() {
+            @Override
+            public void onSuccess(Object result) {
+                Log.i("DoSingUp2: ","singup:" + result);
+                onSingUpPatientListener.onSingUpPatientLoaded((String)result);
+            }
+        });
+
+        mDoSingUpTask.setOnRequestFailed(new AbstractRequestTask.OnRequestListenerFailed() {
+            @Override
+            public void onFailed(Object result) {
+                onSingUpPatientListener.onSingUpPatientError((String)result);
+            }
+        });
+
+        try {
+            mDoSingUpTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void requestGetPatientSchedules(final OnGetPatientSchedulesListener onGetPatientSchedulesListener){
 
         Paciente paciente = new InfoHandler(mContext).getPatientInfo();
@@ -210,6 +235,11 @@ public class ContentRequestManager {
     public interface OnDoLogInListener{
         void onDoLogInLoaded(String result);
         void onDoLogInError(String throwable);
+    }
+
+    public interface OnSingUpPatientListener{
+        void onSingUpPatientLoaded(String result);
+        void onSingUpPatientError(String throwable);
     }
 
     public interface OnGetSpetialistDataListener{

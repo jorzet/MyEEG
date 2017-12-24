@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
+import com.pt.myeeg.fragments.content.BaseContentFragment;
+import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.models.Usuario;
@@ -38,7 +40,7 @@ import java.util.Objects;
  * Created by Jorge Zepeda Tinoco on 08/07/17.
  */
 
-public class SingupFragment extends Fragment implements View.OnClickListener{
+public class SingupFragment extends BaseContentFragment implements View.OnClickListener{
 
     /* For the View */
     private EditText mName;
@@ -54,7 +56,7 @@ public class SingupFragment extends Fragment implements View.OnClickListener{
     private Button mSingup;
 
     private TextView mErrorSingup;
-    private ImageView mLogo;
+    private ImageView mBack;
     private ProgressBar mProgressBar;
     private View mInputSingup;
 
@@ -91,13 +93,15 @@ public class SingupFragment extends Fragment implements View.OnClickListener{
         mSingup = (Button) rootView.findViewById(R.id.singup_button);
 
         mErrorSingup = (TextView) rootView.findViewById(R.id.error_singup);
-        mLogo = (ImageView) rootView.findViewById(R.id.imgLogo);
+        mBack = (ImageView) rootView.findViewById(R.id.back_action);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.singup_progress);
         mInputSingup = (View) rootView.findViewById(R.id.inputsWrapper);
 
         mSingup.setOnClickListener(this);
         isMale.setOnClickListener(this);
         isFemale.setOnClickListener(this);
+
+        mBack.setOnClickListener(this);
 
         return rootView;
     }
@@ -116,6 +120,9 @@ public class SingupFragment extends Fragment implements View.OnClickListener{
             case R.id.singup_button:
                 doSingUp();
                 break;
+            case R.id.back_action:
+                goBackActivity(false);
+                break;
         }
 
     }
@@ -129,16 +136,34 @@ public class SingupFragment extends Fragment implements View.OnClickListener{
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
         String passwordConf = mPasswordConfirmation.getText().toString();
-        String gender = (isMale.isChecked())? ("Masculino"):("Femenino");
+        String gender = (isMale.isChecked())? (Palabras.MALE_GENDER):(Palabras.FEMALE_GENDER);
 
         if(!name.equals("") && !fistLastNames.equals("") && !secondLastName.equals("") &&
                 !age.equals("") && !illnes.equals("") && !email.equals("") && !password.equals("") &&
                 !passwordConf.equals("") && (isMale.isChecked() || isFemale.isChecked())){
             if(password.equals(passwordConf)) {
                 mErrorSingup.setText("");
-                new SIngUp().execute(name, fistLastNames, secondLastName, age, illnes, email, password, gender);
+                Paciente patient = new Paciente();
+                Especialista spetialist = new InfoHandler(getContext()).getSpetialistInfo();
+                patient.setEspecialista(spetialist);
+                patient.setName(name);
+                patient.setFistLastName(fistLastNames);
+                patient.setSecondLastName(secondLastName);
+                patient.setAge(Integer.parseInt(age));
+                patient.setPadecimiento(illnes);
+                patient.setEmail(email);
+                patient.setPassword(password);
+                patient.setGender(gender);
+                Drawable d = getResources().getDrawable(R.drawable.ic_profile);
+                Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] profilePhoto = stream.toByteArray();
+                patient.setProfilePhoto(profilePhoto);
+
+                requestSingUpPatient(patient);
+                //new SIngUp().execute(name, fistLastNames, secondLastName, age, illnes, email, password, gender);
                 mInputSingup.setVisibility(View.GONE);
-                mLogo.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.VISIBLE);
             }else
                 mErrorSingup.setText(Palabras.ERROR_PASSWORDS_NOT_MATCH);
@@ -150,67 +175,56 @@ public class SingupFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void goHomeActivity() {
-        Intent intent = new Intent(getActivity(), ContentActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+    private void goBackActivity(boolean singupSuccess){
+        InfoHandler ih = new InfoHandler(getContext());
+        if(singupSuccess) {
+            ih.saveExtraFromActivity(Palabras.SINGUP, Palabras.SUCESSFULL_SINGUP);
+            ih.saveExtraFromActivity(Palabras.FROM_SINGUP_FRAGMENT_SUCCESS, "true");
+        } else {
+            ih.saveExtraFromActivity(Palabras.FROM_SINGUP_FRAGMENT_SUCCESS, "false");
+        }
+        getActivity().onBackPressed();
     }
 
-    private class SIngUp extends AsyncTask<String, Long, String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            Paciente user = new Paciente();
-            user.setId(0);//Tiene que ir
-            user.setName(params[0]);
-            user.setFistLastName(params[1]);
-            user.setSecondLastName(params[2]);
-            user.setAge(Integer.parseInt(params[3]));
-            user.setPadecimiento(params[4]);
-            user.setEmail(params[5]);
-            user.setPassword(new String(new Hash().getHash(params[6].getBytes())));
-            user.setGender(params[7]);
-            Drawable d = getResources().getDrawable(R.drawable.ic_profile);
-            Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] profilePhoto = stream.toByteArray();
-            user.setProfilePhoto(profilePhoto);
-            return new MetadataInfo().requestSingupPatient(user, getContext());
+    private void showErrorMessage(String response) {
+        if(response==null || response.equals("")) {
+            mErrorSingup.setText(Palabras.ERROR_FROM_WEB_WERVICE);
+            mProgressBar.setVisibility(View.GONE);
+            mInputSingup.setVisibility(View.VISIBLE);
         }
-
-        protected void onPostExecute(String response) {
-            if(response==null || response.equals("")) {
-                mErrorSingup.setText(Palabras.ERROR_FROM_WEB_WERVICE);
-                mLogo.setVisibility(View.GONE);
-                mProgressBar.setVisibility(View.GONE);
-                mInputSingup.setVisibility(View.VISIBLE);
-            }
-            else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
-                mErrorSingup.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
-                mLogo.setVisibility(View.GONE);
-                mProgressBar.setVisibility(View.GONE);
-                mInputSingup.setVisibility(View.VISIBLE);
-            }
-            else if(response.contains("Error") && response.contains("Message")) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    int codeError = json.getInt("Error");
-                    String message = json.getString("Message");
-
-                    mErrorSingup.setText(message);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                mLogo.setVisibility(View.GONE);
-                mProgressBar.setVisibility(View.GONE);
-                mInputSingup.setVisibility(View.VISIBLE);
-            }
-            else {
-                new InfoHandler(getContext()).savePatientSchedules(response);
-                goHomeActivity();
-            }
+        else if(response.equals(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED)) {
+            mErrorSingup.setText(Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED);
+            mProgressBar.setVisibility(View.GONE);
+            mInputSingup.setVisibility(View.VISIBLE);
         }
+        else if(response.contains("Error") && response.contains("Message")) {
+            try {
+                JSONObject json = new JSONObject(response);
+                int codeError = json.getInt("Error");
+                String message = json.getString("Message");
+
+                mErrorSingup.setText(message);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mProgressBar.setVisibility(View.GONE);
+            mInputSingup.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onSingUpPatientSuccess(String response) {
+        super.onSingUpPatientSuccess(response);
+
+        new InfoHandler(getContext()).savePatientSchedules(response);
+        goBackActivity(true);
+    }
+
+    @Override
+    public void onSingUpPatientFail(String response) {
+        super.onSingUpPatientFail(response);
+
+        showErrorMessage(response);
     }
 
 }

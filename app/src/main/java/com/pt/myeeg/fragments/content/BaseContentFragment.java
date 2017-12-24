@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.pt.myeeg.models.Cita;
+import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.request.ContentRequestManager;
 
 /**
@@ -32,6 +33,21 @@ public abstract class BaseContentFragment extends BaseFragment {
             @Override
             public void onDoLogInError(String throwable) {
                 onDoLogInFail(throwable);
+            }
+        });
+    }
+
+    protected void requestSingUpPatient(Paciente patient) {
+        mContentRequestManager.requestSingUpPatient(patient, new ContentRequestManager.OnSingUpPatientListener(){
+            @Override
+            public void onSingUpPatientLoaded(String result) {
+                Log.i("DoLogIn1: ","login:" + result);
+                onSingUpPatientSuccess(result);
+            }
+
+            @Override
+            public void onSingUpPatientError(String throwable) {
+                onSingUpPatientFail(throwable);
             }
         });
     }
@@ -128,6 +144,14 @@ public abstract class BaseContentFragment extends BaseFragment {
     public void onDoLogInFail(String response) {
     }
 
+    public void onSingUpPatientSuccess(String response) {
+
+    }
+
+    public void onSingUpPatientFail(String response) {
+
+    }
+
     public void onGetSpetialistDataSuccess(String response) {
     }
 
@@ -166,5 +190,20 @@ public abstract class BaseContentFragment extends BaseFragment {
 
     }
 
+    public void onGetGeneralResultsSuccess(String response) {
+
+    }
+
+    public void onGetGeneralResultsFail(String response) {
+
+    }
+
+    public void onGetSegmentResultsSuccess(String response) {
+
+    }
+
+    public void onGetSegmentResultsFail(String response) {
+
+    }
 
 }

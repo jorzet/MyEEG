@@ -18,13 +18,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView android:src="@drawable/ic_background_logo"
-                android:id="@+id/imgLogo"
+            <TextView
+                android:id="@+id/singup_text"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/version"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="Registro de paciente"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageView android:src="@drawable/ic_arrow_back"
+                android:id="@+id/back_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@string/version"/>
 
             <ProgressBar
                 android:id="@+id/singup_progress"
@@ -41,6 +50,7 @@
                 android:id="@+id/inputsWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/singup_text"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout

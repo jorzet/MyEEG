@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -16,9 +17,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.RoundedImageView;
+import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.services.android.Utility;
 import com.pt.myeeg.services.database.InfoHandler;
@@ -45,9 +48,17 @@ public class SettingsActivity extends BaseActivityLifecycle{
     private EditText mUserIllness;
     private EditText mUserEmail;
     private EditText mUserPassword;
-    private RoundedImageView mProfileFoto;
+    private RoundedImageView mProfilePhoto;
     private ImageView mChangeProfilePhoto;
     private ImageView mBackButton;
+
+    private RelativeLayout mLayoutUserAge;
+    private RelativeLayout mLayoutUserIllness;
+
+    /* Variable for SharedPreferences */
+    public boolean isMedic = true;
+
+    public static Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,14 +72,21 @@ public class SettingsActivity extends BaseActivityLifecycle{
         mUserIllness = (EditText) findViewById(R.id.edit_user_illness);
         mUserEmail = (EditText) findViewById(R.id.edit_user_email);
         mUserPassword = (EditText) findViewById(R.id.edit_user_password);
-        mProfileFoto = (RoundedImageView) findViewById(R.id.user_profile_photo);
+        mProfilePhoto = (RoundedImageView) findViewById(R.id.user_profile_photo);
         mChangeProfilePhoto = (ImageView) findViewById(R.id.change_user_profile_photo);
         mBackButton = (ImageView) findViewById(R.id.arrow_back);
+
+        mLayoutUserAge = (RelativeLayout) findViewById(R.id.layout_user_age);
+        mLayoutUserIllness = (RelativeLayout) findViewById(R.id.layout_user_illness);
+
+        mContext = getApplication();
+        isMedic = getCurrentUser();
 
         loadUserData();
 
         mChangeProfilePhoto.setOnClickListener(mChangePhoto);
         mBackButton.setOnClickListener(backAction);
+
     }
 
     private View.OnClickListener backAction = new View.OnClickListener() {
@@ -78,16 +96,38 @@ public class SettingsActivity extends BaseActivityLifecycle{
         }
     };
 
-    private void loadUserData(){
-        Paciente patient = new InfoHandler(getApplication()).getPatientInfo();
+    public boolean getCurrentUser(){
+        return new InfoHandler(mContext).getIsMedic();
+    }
 
-        mUserName.setText(patient.getName());
-        mUserFirstLastName.setText(patient.getFirstLastName());
-        mUserSecondLastName.setText(patient.getSecondLastName());
-        mUserAge.setText("" + patient.getAge());
-        mUserIllness.setText(patient.getPadecimiento());
-        mUserEmail.setText(patient.getEmail());
-        mUserPassword.setText("**************");
+    private void loadUserData(){
+        if(isMedic) {
+            Especialista spetialist = new InfoHandler(getApplication()).getSpetialistInfo();
+
+            mUserName.setText(spetialist.getName());
+            mUserFirstLastName.setText(spetialist.getFirstLastName());
+            mUserSecondLastName.setText(spetialist.getSecondLastName());
+            mUserEmail.setText(spetialist.getEmail());
+            mUserPassword.setText("**************");
+
+            mLayoutUserAge.setVisibility(View.GONE);
+            mLayoutUserIllness.setVisibility(View.GONE);
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(spetialist.getPrifilePhoto(), 0, spetialist.getPrifilePhoto().length);
+            mProfilePhoto.setImageBitmap(bmp);
+        } else {
+            Paciente patient = new InfoHandler(getApplication()).getPatientInfo();
+            mUserName.setText(patient.getName());
+            mUserFirstLastName.setText(patient.getFirstLastName());
+            mUserSecondLastName.setText(patient.getSecondLastName());
+            mUserAge.setText("" + patient.getAge());
+            mUserIllness.setText(patient.getPadecimiento());
+            mUserEmail.setText(patient.getEmail());
+            mUserPassword.setText("**************");
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(patient.getPrifilePhoto(), 0, patient.getPrifilePhoto().length);
+            mProfilePhoto.setImageBitmap(bmp);
+        }
     }
 
     private ImageView.OnClickListener mChangePhoto = new View.OnClickListener() {
@@ -190,7 +230,7 @@ public class SettingsActivity extends BaseActivityLifecycle{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mProfileFoto.setImageBitmap(thumbnail);
+        mProfilePhoto.setImageBitmap(thumbnail);
         //user.setFotografia(bytes.toByteArray());
     }
 
@@ -206,7 +246,7 @@ public class SettingsActivity extends BaseActivityLifecycle{
             }
         }
 
-        mProfileFoto.setImageBitmap(bm);
+        mProfilePhoto.setImageBitmap(bm);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
         //user.setFotografia(stream.toByteArray());

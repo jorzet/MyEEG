@@ -2,11 +2,14 @@ package com.pt.myeeg.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
@@ -63,7 +66,10 @@ public class PatientsAdapter extends BaseAdapter{
         }
 
         holder.mPatientName.setText(patient.getName() + " "  + patient.getFirstLastName() + " " + patient.getSecondLastName());
-
+        if(patient.getPrifilePhoto() != null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(patient.getPrifilePhoto(), 0, patient.getPrifilePhoto().length);
+            holder.mProfilePhoto.setImageBitmap(bmp);
+        }
         return convertView;
     }
 

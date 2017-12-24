@@ -93,4 +93,10 @@ public class Palabras {
     public static final String WITHOUT_PATIENTS= "Sin pacientes";
     public static final String WITHOUT_OBSERVATIONS = "Sin observaciones";
 
+    public static final String SINGUP = "singup";
+    public static final String FROM_PATIENTS_LIST_FRAGMENT = "from_patient_list_fragment";
+    public static final String FROM_SINGUP_FRAGMENT_SUCCESS = "from_sing_up_fragment_success";
+    public static final String MALE_GENDER = "Masculino";
+    public static final String FEMALE_GENDER = "Femenino";
+
 }

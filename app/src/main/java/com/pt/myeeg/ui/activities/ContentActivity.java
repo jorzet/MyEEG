@@ -2,12 +2,16 @@ package com.pt.myeeg.ui.activities;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +32,7 @@ import com.pt.myeeg.adapters.RoundedImageView;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
+import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.services.android.CountDown;
 import com.pt.myeeg.services.database.InfoHandler;
 import com.pt.myeeg.ui.dialogs.ErrorDialog;
@@ -39,7 +44,7 @@ import com.pt.myeeg.ui.dialogs.ErrorDialog;
 public class ContentActivity extends BaseActivityLifecycle implements TabLayout.OnTabSelectedListener, View.OnClickListener{
 
     /* For the View */
-    private ImageView mProfilePhoto;
+    private RoundedImageView mProfilePhoto;
     private ImageView mLogout;
     private ImageView mSettings;
     private TextView mName;
@@ -76,6 +81,7 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_container);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -117,6 +123,8 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
         mTabLayout.setOnTabSelectedListener(this);
 
         getInfoUser();
+
+
     }
 
     @Override
@@ -233,12 +241,16 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
             Especialista spetialist = new InfoHandler(getApplicationContext()).getSpetialistInfo();
             if(spetialist != null){
                 mName.setText(spetialist.getName() + " " + spetialist.getFirstLastName() + " " + spetialist.getSecondLastName());
+                Bitmap bmp = BitmapFactory.decodeByteArray(spetialist.getPrifilePhoto(), 0, spetialist.getPrifilePhoto().length);
+                mProfilePhoto.setImageBitmap(bmp);
             }
         } else {
             Paciente patient = new InfoHandler(getApplicationContext()).getPatientInfo();
             if (patient != null) {
                 mName.setText(patient.getName() + " " + patient.getFirstLastName() + " " + patient.getSecondLastName());
                 mAge.setText(patient.getAge() + " años");
+                Bitmap bmp = BitmapFactory.decodeByteArray(patient.getPrifilePhoto(), 0, patient.getPrifilePhoto().length);
+                mProfilePhoto.setImageBitmap(bmp);
             }
         }
     }

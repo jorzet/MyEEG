@@ -1,8 +1,6 @@
 package com.pt.myeeg.ui.activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
-import com.pt.myeeg.fragments.Patients.PatientsFragment;
-import com.pt.myeeg.fragments.results.GeneralResults;
-import com.pt.myeeg.fragments.schedule.SchedulesFragment;
+import com.pt.myeeg.fragments.patients.PatientsFragment;
 import com.pt.myeeg.fragments.schedule.SchedulesPatientFragment;
 import com.pt.myeeg.services.database.InfoHandler;
 

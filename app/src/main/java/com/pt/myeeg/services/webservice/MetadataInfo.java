@@ -41,18 +41,9 @@ public class MetadataInfo {
 
     }
 
-    public String requestSingupPatient(Usuario user, Context context){
-        if(HttpRequest.isConnected(context)) {
-            String response = HttpRequest.sendGetRequest(MetadataInfo.URL +
-                    MetadataInfo.SING_UP_PATIENT +
-                    JSONBuilder.bildSingupJson(user));
-            if(response!=null && response.equals(Palabras.SUCESSFULL_SINGUP)){
-                return HttpRequest.sendGetRequest(MetadataInfo.URL +
-                        MetadataInfo.SING_IN +
-                        JSONBuilder.bildLoginJson(user.getEmail(), user.getPassword()));
-            }else
-                return response;
-        }
+    public static String requestSingupPatient(String url, Context context){
+        if(HttpRequest.isConnected(context))
+            return HttpRequest.sendGetRequest(url);
         else
             return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
 

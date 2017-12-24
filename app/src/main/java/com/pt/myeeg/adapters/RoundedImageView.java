@@ -17,7 +17,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.pt.myeeg.R;
 
 public class RoundedImageView extends AppCompatImageView{
 
@@ -40,10 +43,14 @@ public class RoundedImageView extends AppCompatImageView{
             return;
         }
         Bitmap b =  ((BitmapDrawable)drawable).getBitmap() ;
+
+        // if bitmap is null set default image
+        if(b == null)
+            b = ((BitmapDrawable)getContext().getResources().getDrawable(R.drawable.ic_profile)).getBitmap();
+
         Bitmap bitmap = b.copy(Config.ARGB_8888, true);
 
         int w = getWidth(), h = getHeight();
-
 
         Bitmap roundBitmap =  getRoundedCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0,0, null);
