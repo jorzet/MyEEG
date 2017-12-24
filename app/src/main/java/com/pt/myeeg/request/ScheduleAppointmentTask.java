@@ -7,6 +7,8 @@ import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.services.webservice.JSONBuilder;
 import com.pt.myeeg.services.webservice.MetadataInfo;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by Jorge on 23/12/17.
  */
@@ -22,7 +24,12 @@ public class ScheduleAppointmentTask extends AbstractRequestTask {
 
     @Override
     protected String getUrl() {
-        return MetadataInfo.URL + MetadataInfo.APPOINTMENT_SCHEDULE + JSONBuilder.bildJsonFromObject(mSchedule).replace("{","%7B").replace("}","%7D");
+        try {
+            return MetadataInfo.URL + MetadataInfo.APPOINTMENT_SCHEDULE + java.net.URLEncoder.encode(JSONBuilder.buildSingupJson(mSchedule),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
