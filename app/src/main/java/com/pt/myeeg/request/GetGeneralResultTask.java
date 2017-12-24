@@ -1,37 +1,41 @@
 package com.pt.myeeg.request;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context;
 
-import com.pt.myeeg.fragments.content.BaseContentFragment;
+import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge Zepeda Tinoco on 24/12/17.
  */
 
-public class GetGeneralResultTask extends BaseContentFragment {
+public class GetGeneralResultTask extends AbstractRequestTask {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    int idSchedule;
+    Context mContext;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public GetGeneralResultTask(Context context, int idSchedule) {
+        this.mContext = context;
+        this.idSchedule = idSchedule;
     }
 
     @Override
-    public void onGetGeneralResultsSuccess(String response) {
-        super.onGetGeneralResultsSuccess(response);
+    protected String getUrl() {
+        return MetadataInfo.URL + MetadataInfo.GET_GENERAL_RESULTS + idSchedule;
     }
 
     @Override
-    public void onGetGeneralResultsFail(String response) {
-        super.onGetGeneralResultsFail(response);
+    protected Object doInBackground(Object[] objects) {
+        return MetadataInfo.requestGetGeneralResults(getUrl(), mContext);
+    }
+
+    @Override
+    protected void onPostExecute(Object response) {
+        super.onPostExecute(response);
+
+        if (response==null || response.equals("") || ((String)response).contains("Error")) {
+            onRequestFailListener.onFailed(response);
+        } else {
+            onRequestSuccessListener.onSuccess(response);
+        }
     }
 }
