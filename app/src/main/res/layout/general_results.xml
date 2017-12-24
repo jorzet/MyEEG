@@ -4,10 +4,33 @@
     android:layout_height="match_parent"
     android:background="@color/blanco">
 
+    <ProgressBar
+        android:id="@+id/loading_general_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/error_not_general_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/holo_red_light"
+        android:gravity="center"
+        android:visibility="gone"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/loading_general_results"
+        android:layout_toEndOf="@+id/loading_general_results"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp">
         <RelativeLayout
+            android:id="@+id/general_results_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -48,7 +71,7 @@
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <TextView
-                        android:id="@+id/schedule_id"
+                        android:id="@+id/id_schedule"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_column="1"
@@ -56,6 +79,7 @@
                         android:background="#FFFFFF"
                         android:gravity="center"
                         android:text=""
+                        android:textSize="14sp"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 </TableRow>
@@ -85,6 +109,7 @@
                         android:background="#FFFFFF"
                         android:gravity="center"
                         android:text=""
+                        android:textSize="14sp"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 </TableRow>
@@ -114,15 +139,16 @@
                         android:background="#FFFFFF"
                         android:gravity="center"
                         android:text=""
+                        android:textSize="14sp"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 </TableRow>
 
 
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="#000000">
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#000000">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -144,6 +170,67 @@
                         android:background="#FFFFFF"
                         android:gravity="center"
                         android:text=""
+                        android:textSize="14sp"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#000000">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_column="0"
+                        android:background="#FFFFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Electrodos utilizados"
+                        android:textSize="16sp"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/electrodes_used"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_column="1"
+                        android:layout_margin="1dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#000000">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_column="0"
+                        android:background="#FFFFFF"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Duración del estudio"
+                        android:textSize="16sp"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/study_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_column="1"
+                        android:layout_margin="1dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:text=""
+                        android:textSize="14sp"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 </TableRow>
@@ -157,9 +244,10 @@
                 android:layout_below="@+id/general_date"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginBottom="30dp"
                 android:padding="12dp"
                 android:backgroundTint="@color/colorGreenButton"
-                android:text="ver resultados especificos"
+                android:text="Consultar resultados especificos"
                 android:textColor="@color/blanco" />
 
         </RelativeLayout>
