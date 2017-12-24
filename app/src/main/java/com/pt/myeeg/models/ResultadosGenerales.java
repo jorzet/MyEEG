@@ -14,7 +14,7 @@ public class ResultadosGenerales {
     private Cita cita;
     private String zonaCerebral;
     private String tipoOndaDominante;
-    private float porcentajeTipoOnda;
+    private double porcentajeTipoOnda;
 
     public ResultadosGenerales(){}
 
@@ -38,7 +38,7 @@ public class ResultadosGenerales {
         return this.tipoOndaDominante;
     }
 
-    public float getPorcentajeTipoOnda(){
+    public double getPorcentajeTipoOnda(){
         return this.porcentajeTipoOnda;
     }
 
@@ -78,7 +78,7 @@ public class ResultadosGenerales {
      *
      * @param tipoOndaDominante
      */
-    public void setTipoOndaDominate(String tipoOndaDominante){
+    public void setTipoOndaDominate(String tipoOndaDominante) {
         this.tipoOndaDominante = tipoOndaDominante;
     }
 
@@ -86,7 +86,7 @@ public class ResultadosGenerales {
      *
      * @param porcentajeTipoOnda
      */
-    public void setPorcentajeTipoOnda(float porcentajeTipoOnda){
+    public void setPorcentajeTipoOnda(double porcentajeTipoOnda) {
         this.porcentajeTipoOnda = porcentajeTipoOnda;
     }
 }
