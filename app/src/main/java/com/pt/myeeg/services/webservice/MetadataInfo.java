@@ -17,26 +17,25 @@ public class MetadataInfo {
     public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography"; // Home network
     //public static final String URL = "http://192.168.43.74:8084/EEG_Final_1/terminalproject/electroencephalography"; // Smartphone network
 
-    private static final String SING_IN = "/singin/";
-    private static final String SING_UP_PATIENT = "/singuppatient/";
-    private static final String SING_UP_SPETIALIST = "/singupspetialist/";
-    private static final String GET_PATIENT_DATA = "/getpatientdata/";
-    private static final String GET_SPETIALIST_DATA = "/getspetialistdata/";
-    private static final String GET_ALL_SPETIALIST = "/getallspetialist";
-    private static final String GET_PATIENTS_BY_SPETIALIST = "/getpatientsbyspetialist/";
-    private static final String GET_PATIENT_SCHEDULE = "/getpatientschedule/";
-    private static final String GET_PATIENT_SCHEDULES = "/getpatientschedules/";
-    private static final String GET_SPETIALIST_SCHEDULES = "/getallspetialistschedules/";
-    private static final String GET_STUDY_BY_PATIENT = "/getstudybypatient/";
-    private static final String GET_DEVICES_BY_PATIENT = "/getdevicesbypatient/";
-    private static final String RESTART_PASSWORD = "/getrestorepassword/";
+    public static final String SING_IN = "/singin/";
+    public static final String SING_UP_PATIENT = "/singuppatient/";
+    public static final String SING_UP_SPETIALIST = "/singupspetialist/";
+    public static final String GET_PATIENT_DATA = "/getpatientdata/";
+    public static final String GET_SPETIALIST_DATA = "/getspetialistdata/";
+    public static final String GET_ALL_SPETIALIST = "/getallspetialist";
+    public static final String GET_PATIENTS_BY_SPETIALIST = "/getpatientsbyspetialist/";
+    public static final String GET_PATIENT_SCHEDULE = "/getpatientschedule/";
+    public static final String GET_PATIENT_SCHEDULES = "/getpatientschedules/";
+    public static final String GET_SPETIALIST_SCHEDULES = "/getallspetialistschedules/";
+    public static final String GET_STUDY_BY_PATIENT = "/getstudybypatient/";
+    public static final String GET_DEVICES_BY_PATIENT = "/getdevicesbypatient/";
+    public static final String RESTART_PASSWORD = "/getrestorepassword/";
+    public static final String APPOINTMENT_SCHEDULE = "/scheduleappointment/";
 
-    public String requestLogin(String email, String hashPassword, Context context){
+    public static String requestLogin(String url, Context context){
         /*TODO obtain the hash password*/
         if(HttpRequest.isConnected(context))
-            return HttpRequest.sendGetRequest(MetadataInfo.URL +
-                    MetadataInfo.SING_IN +
-                    JSONBuilder.bildLoginJson(email,hashPassword));
+            return HttpRequest.sendGetRequest(url);
         else
             return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
 
@@ -76,41 +75,49 @@ public class MetadataInfo {
                 idPatient);
     }
 
-    public String requestGetSpetialistData(int idSpetialist, Context context){
+    public static String requestGetSpetialistData(String url, Context context){
         if(HttpRequest.isConnected(context))
-            return HttpRequest.sendGetRequest(MetadataInfo.URL +
-                    MetadataInfo.GET_SPETIALIST_DATA +
-                    idSpetialist);
+            return HttpRequest.sendGetRequest(url);
         else
-        return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
     }
 
     public String requestGetAllSpetialist(){
         return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_ALL_SPETIALIST);
     }
 
-    public String requestGetPatientsBySpetialist(int idSpetialist){
-        return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_PATIENTS_BY_SPETIALIST + idSpetialist);
+    public static String requestGetPatientsBySpetialist(String url){
+        return HttpRequest.sendGetRequest(url);
     }
 
     public String requestGetPatientSchedule(int idPatient, int idSchedule){
         return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_PATIENT_SCHEDULE + JSONBuilder.buildPatientScheduleJson(idPatient,idSchedule));
     }
 
-    public String requestGetPatientSchedules(int idPatient){
-        return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_PATIENT_SCHEDULES + idPatient);
+    public static String requestGetPatientSchedules(String url){
+        return HttpRequest.sendGetRequest(url);
     }
 
-    public String requestGetSpetialistSchedules(int isSpetialist){
-        return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_SPETIALIST_SCHEDULES + isSpetialist);
+    public static String requestGetSpetialistSchedules(String url){
+        return HttpRequest.sendGetRequest(url);
     }
 
     public String requestGetStudyByPatient(int idPatient, int idSchedule){
         return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_PATIENT_SCHEDULES + JSONBuilder.buildPatientScheduleJson(idPatient,idSchedule));
     }
 
-    public String requestGetDevicesByPatient(int idPatient){
-        Log.d("MyTAG:","url: "+ MetadataInfo.URL + MetadataInfo.GET_DEVICES_BY_PATIENT + idPatient);
-        return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.GET_DEVICES_BY_PATIENT + idPatient);
+    public static String requestGetDevicesByPatient(String url){
+        Log.d("MyTAG:","url: "+ url);
+        return HttpRequest.sendGetRequest(url);
+    }
+
+    public static String requestAppointmentSchdule(String url, Context context){
+        if(HttpRequest.isConnected(context)) {
+            Log.d("Appointment","sendGetrequest");
+            return HttpRequest.sendGetRequest(url);
+        }
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
+
     }
 }

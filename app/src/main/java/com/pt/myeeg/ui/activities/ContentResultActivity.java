@@ -13,10 +13,11 @@ import com.pt.myeeg.R;
 import com.pt.myeeg.fragments.Patients.PatientsFragment;
 import com.pt.myeeg.fragments.results.GeneralResults;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
+import com.pt.myeeg.fragments.schedule.SchedulesPatientFragment;
 import com.pt.myeeg.services.database.InfoHandler;
 
 /**
- * Created by Jorge on 19/12/17.
+ * Created by Jorge Zepeda Tinoco on 19/12/17.
  */
 
 public class ContentResultActivity extends BaseActivityLifecycle {
@@ -43,7 +44,7 @@ public class ContentResultActivity extends BaseActivityLifecycle {
         mNamePatient.setText(namePatient);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_results, new GeneralResults());
+        ft.replace(R.id.fragment_container_results, new SchedulesPatientFragment());
         ft.commit();
 
     }

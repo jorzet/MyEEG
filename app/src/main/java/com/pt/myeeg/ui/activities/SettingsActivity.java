@@ -30,7 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by jorgezeped on 22/08/17.
+ * Created by Jorge Zepeda Tinoco on 22/08/17.
  */
 
 public class SettingsActivity extends BaseActivityLifecycle{

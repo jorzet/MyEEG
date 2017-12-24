@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.pt.myeeg.R;
+import com.pt.myeeg.services.database.InfoHandler;
 import com.pt.myeeg.ui.activities.ContentActivity;
 import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 
@@ -30,11 +31,13 @@ public class SchedulesAdapter extends ArrayAdapter<String> {
 
     private Context activity;
     private List<String> friendList;
+    private InfoHandler ih;
 
     public SchedulesAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         this.activity = context;
         this.friendList = objects;
+        this.ih = new InfoHandler(context);
     }
 
     @Override
@@ -70,7 +73,12 @@ public class SchedulesAdapter extends ArrayAdapter<String> {
         }
 
         holder.mGeneralDescription.setText("Estudio programado");
-        holder.mDescription.setText("Tienes una cita programada para el dia: "+getItem(position));
+        
+        if (ih.getIsMedic()) {
+            holder.mDescription.setText("Tu paciente tiene una cita programada para el dia: " + getItem(position));
+        } else {
+            holder.mDescription.setText("Tienes una cita programada para el dia: " + getItem(position));
+        }
 
         //get first letter of each String item
 

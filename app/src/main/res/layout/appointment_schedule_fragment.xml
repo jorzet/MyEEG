@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
+        android:id="@+id/scroll_view_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -26,10 +27,41 @@
                 android:layout_below="@id/appointent"
                 android:layout_centerHorizontal="true"/>
             <TextView
-                android:id="@+id/select_hour_text"
+                android:id="@+id/select_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/choose_petient_spinner"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Seleccione la fecha de la cita"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/day_month_year_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/select_date_text"
+                android:layout_centerHorizontal="true"
+                android:text="Día                Mes               Año  "/>
+
+
+
+            <DatePicker
+                android:id="@+id/choose_date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/day_month_year_text"
+                android:layout_centerHorizontal="true"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
+
+
+            <TextView
+                android:id="@+id/select_hour_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_date_picker"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
                 android:text="Seleccione la hora de la cita"
@@ -42,7 +74,7 @@
                 android:layout_below="@id/select_hour_text"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
-                android:text="Horas          Minutos                     "/>
+                android:text="Horas          Minutos"/>
 
             <TimePicker
                 android:id="@+id/choose_time_picker"
@@ -51,40 +83,38 @@
                 android:layout_below="@+id/hour_minute_text"
                 android:timePickerMode="spinner"/>
 
+
             <TextView
-                android:id="@+id/select_date_text"
+                android:id="@+id/select_hour_text_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/choose_time_picker"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
-                android:text="Seleccione la hora de la cita"
+                android:text="Ingresa la duración de la cita"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/day_month_year_text"
+                android:id="@+id/hour_minute_text_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/select_hour_text_duration"
                 android:layout_marginTop="10dp"
-                android:layout_below="@id/select_date_text"
                 android:layout_centerHorizontal="true"
-                android:text="Dia                Mes               Año  "/>
+                android:text="Horas          Minutos"/>
 
-
-            <DatePicker
-                android:id="@+id/choose_date_picker"
+            <TimePicker
+                android:id="@+id/choose_duration_picker"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_below="@+id/day_month_year_text"
-                android:layout_centerHorizontal="true"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"/>
+                android:layout_below="@+id/hour_minute_text_duration"
+                android:timePickerMode="spinner" />
 
             <TextView
                 android:id="@+id/select_channels_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/choose_date_picker"
+                android:layout_below="@id/choose_duration_picker"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
                 android:text="Seleccione los canales a usar"
@@ -99,11 +129,30 @@
                 android:layout_below="@+id/select_channels_text"
                 android:layout_centerHorizontal="true"/>
 
+            <TextView
+                android:id="@+id/observations_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_channels"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:text="Ingrese las observaciones y/o recomendaciones"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/insert_observations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_below="@+id/observations_text"/>
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/appoint_schedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/choose_channels"
+                android:layout_below="@+id/insert_observations"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
                 android:padding="12dp"

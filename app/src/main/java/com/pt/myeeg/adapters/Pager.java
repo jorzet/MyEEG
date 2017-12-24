@@ -8,8 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.pt.myeeg.fragments.Patients.PatientsFragment;
 import com.pt.myeeg.fragments.profile.ProfileFragmentPatient;
 import com.pt.myeeg.fragments.profile.ProfileFragmentSpetialist;
-import com.pt.myeeg.fragments.results.PatientResults;
-import com.pt.myeeg.fragments.schedule.AppointmentSchedule;
+import com.pt.myeeg.fragments.schedule.AppointmentScheduleFragment;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
 import com.pt.myeeg.services.database.InfoHandler;
 
@@ -43,7 +42,7 @@ public class Pager extends FragmentStatePagerAdapter{
                 case 1:
                     return new PatientsFragment();
                 case 2:
-                    return new AppointmentSchedule();
+                    return new AppointmentScheduleFragment();
                 default:
                     return null;
             }
