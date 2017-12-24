@@ -28,7 +28,7 @@ public class DoLogInTask extends AbstractRequestTask {
 
     @Override
     protected String getUrl() {
-        return MetadataInfo.URL + MetadataInfo.SING_IN + JSONBuilder.bildLoginJson(email,password);
+        return MetadataInfo.URL + MetadataInfo.SING_IN + JSONBuilder.buildLoginJson(email,password);
     }
 
     @Override
