@@ -41,7 +41,7 @@ public class JSONBuilder {
         return pila.isEmpty();*/
     }
 
-    public static String bildLoginJson(String email, String password){
+    public static String buildLoginJson(String email, String password){
         JSONObject json = new JSONObject();
         try {
             json.put("email",email);
@@ -65,11 +65,11 @@ public class JSONBuilder {
         return json.toString().replace("{","%7B").replace("}","%7D");
     }
 
-    public static String bildSingupJson(Object object){
+    public static String buildSingupJson(Object object){
         return new Gson().toJson(object).replace("{","%7B").replace("}","%7D");
     }
 
-    public static String bildJsonFromObject(Object object){
+    public static String buildJsonFromObject(Object object){
         return new Gson().toJson(object);
     }
 
