@@ -86,4 +86,10 @@ public class Palabras {
     public static final String MAC_ADDRESS = "mac_address";
     public static final String CURRENT_SCHEDULE = "current_schedule";
 
+
+    /* to schedule an appointment */
+    public static final String SELECT_A_PATIENT = "Seleccione un paciente";
+    public static final String WITHOUT_PATIENTS= "Sin pacientes";
+    public static final String WITHOUT_OBSERVATIONS = "Sin observaciones";
+
 }
