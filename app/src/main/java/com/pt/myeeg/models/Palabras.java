@@ -57,6 +57,10 @@ public class Palabras {
     public static final String PATIENT_TYPE = "Paciente";
     public static final String SPETIALIST_TYPE = "Especialista";
     public static final String SCHEDULE_ID = "schedule_id";
+    public static final String CHANNEL_NAME = "channel_name";
+    public static final String SINCE_SECOND = "since_second";
+    public static final String TO_SECOND = "to_second";
+    public static final String SECOND = "second";
 
     public static final String FP1 = "fp1";
     public static final String FP2 = "fp2";
@@ -101,4 +105,8 @@ public class Palabras {
     public static final String FEMALE_GENDER = "Femenino";
 
     public static final String ERROR_NOT_GENERAL_RESULTS = "Error, no existen los resultados generales de esta cita";
+
+    /*  */
+
+    public static final String SELECT_A_CHANNEL = "Seleccione un canal";
 }

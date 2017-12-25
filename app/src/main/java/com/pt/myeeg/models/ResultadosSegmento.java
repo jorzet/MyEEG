@@ -16,6 +16,7 @@ public class ResultadosSegmento {
     private float frecuenciaDominante;
     private String tipoOnda;
     private String senal;
+    private double[] doubleSignal;
 
     public ResultadosSegmento(){}
 
@@ -45,6 +46,15 @@ public class ResultadosSegmento {
 
     public String getSenal(){
         return this.senal;
+    }
+
+    public double[] getDoubleSignal() {
+        String[] doubles = senal.split(",");
+        doubleSignal = new double[doubles.length];
+        for(int i = 0;i < doubles.length; i++) {
+            doubleSignal[i] = Double.parseDouble(doubles[i]);
+        }
+        return doubleSignal;
     }
 
     /**

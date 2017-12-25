@@ -32,6 +32,8 @@ public class MetadataInfo {
     public static final String RESTART_PASSWORD = "/getrestorepassword/";
     public static final String APPOINTMENT_SCHEDULE = "/scheduleappointment/";
     public static final String GET_GENERAL_RESULTS = "/getgeneralresultsbyschedule/";
+    public static final String GET_SEGMENT_RESULTS_BY_SECOND = "/getresultsegmentbysecond/";
+    public static final String GET_SEGMENT_RESULTS_BY_INTERVAL = "/getresultsegmentbyinterval/";
 
     public static String requestLogin(String url, Context context){
         /*TODO obtain the hash password*/
@@ -121,4 +123,14 @@ public class MetadataInfo {
         else
             return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
     }
+
+    public static String requestGetSegmentResults(String url, Context context) {
+        if(HttpRequest.isConnected(context)) {
+            Log.d("SegmentResults","sendGetrequest");
+            return HttpRequest.sendGetRequest(url);
+        }
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
+    }
+
 }

@@ -8,6 +8,7 @@ import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
+import com.pt.myeeg.models.ResultadosSegmento;
 import com.pt.myeeg.models.Usuario;
 import com.pt.myeeg.security.AccessToken;
 import com.pt.myeeg.services.webservice.JSONBuilder;
@@ -148,6 +149,18 @@ public class InfoHandler {
         return null;
     }
 
+    public ArrayList<ResultadosSegmento> getSegmetResultsArrayList(){
+        DataBase db = new DataBase(mContext);
+        String patientsJson = db.getSegmentResults();
+        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, ResultadosSegmento.class);
+        ArrayList<ResultadosSegmento> segmentResults = new ArrayList<>();
+        if (objects != null) {
+            for (int i = 0; i < objects.size(); i++)
+                segmentResults.add((ResultadosSegmento) objects.get(i));
+            return segmentResults;
+        }
+        return null;
+    }
 
 
     public int getPatientsCount(){

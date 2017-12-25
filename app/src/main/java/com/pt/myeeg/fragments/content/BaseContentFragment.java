@@ -141,13 +141,27 @@ public abstract class BaseContentFragment extends BaseFragment {
     protected void requestGetGeneralResults(int scheduleId) {
         mContentRequestManager.requestGetGeneralResults(scheduleId, new ContentRequestManager.OnGetGeneralResultsListener() {
             @Override
-            public void onGetGeneralresultsLoaded(String result) {
+            public void onGetGeneralResultsLoaded(String result) {
                 onGetGeneralResultsSuccess(result);
             }
 
             @Override
-            public void onGetGeneralresultsError(String throwable) {
+            public void onGetGeneralResultsError(String throwable) {
                 onGetGeneralResultsFail(throwable);
+            }
+        });
+    }
+
+    protected void requestGetSegmentResults(int scheduleId, String channel, int sinceSecond, int toSecond) {
+        mContentRequestManager.requestGetSegmentResults(scheduleId, channel, sinceSecond, toSecond, new ContentRequestManager.OnGetSegmentResultsListener() {
+            @Override
+            public void onGetSegmentResultsLoaded(String result) {
+                onGetSegmentResultsSuccess(result);
+            }
+
+            @Override
+            public void onGetSegmentResultsError(String throwable) {
+                onGetSegmentResultsFail(throwable);
             }
         });
     }

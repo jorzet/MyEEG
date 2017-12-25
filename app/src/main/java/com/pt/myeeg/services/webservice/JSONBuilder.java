@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.pt.myeeg.models.Palabras;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,5 +155,32 @@ public class JSONBuilder {
         } catch (NullPointerException e){
             return null;
         }
+    }
+
+    public static String buildSegmentResultsByIntervalJson(int scheduleId, int siceSecond, int toSecond, String channel){
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Palabras.SCHEDULE_ID, scheduleId);
+            json.put(Palabras.CHANNEL_NAME, channel);
+            json.put(Palabras.SINCE_SECOND, siceSecond);
+            json.put(Palabras.TO_SECOND, toSecond);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString().replace("{","%7B").replace("}","%7D");
+    }
+
+    public static String buildSegmentResultsBySecondJson(int scheduleId, int second, String channel){
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Palabras.SCHEDULE_ID, scheduleId);
+            json.put(Palabras.CHANNEL_NAME, channel);
+            json.put(Palabras.SECOND, second);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString().replace("{","%7B").replace("}","%7D");
     }
 }

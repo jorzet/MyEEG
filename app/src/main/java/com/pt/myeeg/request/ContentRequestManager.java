@@ -239,19 +239,44 @@ public class ContentRequestManager {
         mGeneralResultsTask.setOnRequestSuccess(new AbstractRequestTask.OnRequestListenerSuccess() {
             @Override
             public void onSuccess(Object result) {
-                onGetGeneralResultsListener.onGetGeneralresultsLoaded((String)result);
+                onGetGeneralResultsListener.onGetGeneralResultsLoaded((String)result);
             }
         });
 
         mGeneralResultsTask.setOnRequestFailed(new AbstractRequestTask.OnRequestListenerFailed() {
             @Override
             public void onFailed(Object result) {
-                onGetGeneralResultsListener.onGetGeneralresultsError((String)result);
+                onGetGeneralResultsListener.onGetGeneralResultsError((String)result);
             }
         });
 
         try {
             mGeneralResultsTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void requestGetSegmentResults(int scheduleId, String channel, int sinceSecond, int toSecond, final OnGetSegmentResultsListener onGetSegmentResultsListener) {
+        GetSegmentResultsTask mSegmentResultsTask = new GetSegmentResultsTask(mContext, scheduleId, channel, sinceSecond, toSecond);
+
+        mSegmentResultsTask.setOnRequestSuccess(new AbstractRequestTask.OnRequestListenerSuccess() {
+            @Override
+            public void onSuccess(Object result) {
+                onGetSegmentResultsListener.onGetSegmentResultsLoaded((String)result);
+            }
+        });
+
+        mSegmentResultsTask.setOnRequestFailed(new AbstractRequestTask.OnRequestListenerFailed() {
+            @Override
+            public void onFailed(Object result) {
+                onGetSegmentResultsListener.onGetSegmentResultsError((String)result);
+            }
+        });
+
+        try {
+            mSegmentResultsTask.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -298,7 +323,12 @@ public class ContentRequestManager {
     }
 
     public interface OnGetGeneralResultsListener {
-        void onGetGeneralresultsLoaded(String result);
-        void onGetGeneralresultsError(String throwable);
+        void onGetGeneralResultsLoaded(String result);
+        void onGetGeneralResultsError(String throwable);
+    }
+
+    public interface  OnGetSegmentResultsListener {
+        void onGetSegmentResultsLoaded(String result);
+        void onGetSegmentResultsError(String throwable);
     }
 }
