@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.SchedulesAdapter;
+import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
@@ -29,13 +31,14 @@ import java.util.ArrayList;
  * Created by Jorge Zepeda Tinoco on 09/07/17.
  */
 
-public class SchedulesFragment extends BaseFragment implements AdapterView.OnItemClickListener{
+public class SchedulesFragment extends BaseContentFragment implements AdapterView.OnItemClickListener{
 
     /* for Bundle */
     public static final String DATE_COLOR = "date_color";
     public static final String DATE_TEXT = "date_text";
 
     /* for View */
+    private ImageButton mRefreshView;
     private ListView listView;
     private TextView mErrorSchedule;
     private ArrayList<String> stringScheduleList;
@@ -56,6 +59,7 @@ public class SchedulesFragment extends BaseFragment implements AdapterView.OnIte
 
         View rootView = inflater.inflate(R.layout.schedules_fragment, container, false);
 
+        mRefreshView = (ImageButton) rootView.findViewById(R.id.refresh_view);
         listView = (ListView) rootView.findViewById(R.id.list_schedule);
         mErrorSchedule = (TextView) rootView.findViewById(R.id.schedule_error);
         listView.setOnItemClickListener(this);
@@ -71,6 +75,9 @@ public class SchedulesFragment extends BaseFragment implements AdapterView.OnIte
             adapter = new SchedulesAdapter(getContext(), R.layout.item_schedule_listview, stringScheduleList);
             listView.setAdapter(adapter);
         }
+
+        mRefreshView.setOnClickListener(mRefreshViewListener);
+
         return rootView;
     }
 
@@ -95,6 +102,17 @@ public class SchedulesFragment extends BaseFragment implements AdapterView.OnIte
             listView.setVisibility(View.GONE);
             mErrorSchedule.setText(savedSchedules);
         }
+    }
+
+    private View.OnClickListener mRefreshViewListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            loadData();
+        }
+    };
+
+    private void loadData(){
+        requestGetPatientSchedules();
     }
 
     @Override
@@ -156,5 +174,27 @@ public class SchedulesFragment extends BaseFragment implements AdapterView.OnIte
             startActivity(intent, transitionActivityOptions.toBundle());
         }
 
+    }
+
+
+    @Override
+    public void onGetPatientSchedulesSuccess(String response) {
+        super.onGetPatientSchedulesSuccess(response);
+        setData();
+        if(stringScheduleList.isEmpty()) {
+            mErrorSchedule.setText("Aun  no tienes citas");
+            listView.setVisibility(View.GONE);
+            mErrorSchedule.setVisibility(View.VISIBLE);
+        } else {
+            mErrorSchedule.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            adapter = new SchedulesAdapter(getContext(), R.layout.item_schedule_listview, stringScheduleList);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onGetPatientSchedulesFail(String response) {
+        super.onGetPatientSchedulesFail(response);
     }
 }
