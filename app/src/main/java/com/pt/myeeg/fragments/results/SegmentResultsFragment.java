@@ -45,15 +45,21 @@ public class SegmentResultsFragment extends BaseContentFragment {
         List<Entry> entries = new ArrayList<Entry>();
         int lastPosition = 0;
 
+
+
         for (int i = 0; i < segmentResults.size(); i++) {
             String[] senal = segmentResults.get(i).getSenal().split(",");
-            int j = 0;
-            for (j = 0; j < senal.length; j++) {
-                // turn your data into Entry objects
-                Log.d("Senal",(Float.valueOf(senal[j])*10)+ ", ");
-                entries.add(new Entry(j + lastPosition, Float.valueOf(senal[j])*10));
+            float[] floatSenal = new float[senal.length];
+            for (int h = 0; h < senal.length; h++) {
+                floatSenal[h] = Float.valueOf(senal[h]);
             }
-            lastPosition = j;
+            int j = 0;
+            for (j = 0; j < floatSenal.length; j++) {
+                // turn your data into Entry objects
+                Log.d("Senal",(Float.valueOf(senal[j]))+ ", ");
+                entries.add(new Entry(j + lastPosition, (float)(floatSenal[j]-getMean(floatSenal))));
+            }
+            lastPosition = lastPosition + j;
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "señal"); // add entries to dataset
@@ -65,6 +71,17 @@ public class SegmentResultsFragment extends BaseContentFragment {
         mPlot.invalidate(); // refresh
 
         return rootView;
+    }
+
+    public double getMean(float[] data) {
+        double sum = 0.0;
+        if (data.length == 0)
+            return sum;
+
+        for (int i = 0; i != data.length; ++i)
+            sum += data[i];
+
+        return sum / data.length;
     }
 
 }
