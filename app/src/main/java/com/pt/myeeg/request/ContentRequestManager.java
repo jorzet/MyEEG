@@ -124,6 +124,33 @@ public class ContentRequestManager {
         }
     }
 
+    public void requestGetPatientData(final OnGetPatientDataListener onGetPatientDataListener){
+
+        Paciente patient = new InfoHandler(mContext).getPatientInfo();
+        GetPatientDataTask mSpetialistDataTask = new GetPatientDataTask(mContext, patient);
+
+
+        mSpetialistDataTask.setOnRequestSuccess(new AbstractRequestTask.OnRequestListenerSuccess() {
+            @Override
+            public void onSuccess(Object result) {
+                onGetPatientDataListener.onGetPatientDataLoaded((String)result);
+            }
+        });
+
+        mSpetialistDataTask.setOnRequestFailed(new AbstractRequestTask.OnRequestListenerFailed() {
+            @Override
+            public void onFailed(Object result) {
+                onGetPatientDataListener.onGetPatientDataError((String)result);
+            }
+        });
+
+        try {
+            mSpetialistDataTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void requestGetPatientsBySpetialist(final OnGetPatientsBySpetialistListener onGetPatientsBySpetialistListener){
 
         Especialista especialista = new InfoHandler(mContext).getSpetialistInfo();
@@ -296,6 +323,12 @@ public class ContentRequestManager {
         void onGetSpetialistDataLoaded(String result);
         void onGetSpetialistDataError(String throwable);
     }
+
+    public interface OnGetPatientDataListener{
+        void onGetPatientDataLoaded(String result);
+        void onGetPatientDataError(String throwable);
+    }
+
 
     public interface OnGetPatientsBySpetialistListener{
         void onGetPatientsBySpetialistLoaded(String result);

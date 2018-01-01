@@ -103,13 +103,14 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
             onBackPressed();
         }
     };
+
     @Override
     public void onBackPressed() {
         InfoHandler ih = new InfoHandler(getApplication());
         if(getSupportFragmentManager().findFragmentById(R.id.fragment_container_schedule) instanceof RecordingFragment && Boolean.parseBoolean(ih.getExtraStored(RecordingFragment.RECORDING)))
             ih.saveExtraFromActivity(RecordingFragment.FROM_RECORDING, "true");
         else
-            ih.saveExtraFromActivity(Palabras.SCHEDULE_POSITION, null);
+            ih.saveExtraFromActivity(RecordingFragment.IN_RECORDING, null);
         super.onBackPressed();
     }
 
@@ -125,7 +126,7 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
         if(getSupportFragmentManager().findFragmentById(R.id.fragment_container_schedule) instanceof RecordingFragment && Boolean.parseBoolean(ih.getExtraStored(RecordingFragment.RECORDING)))
             ih.saveExtraFromActivity(RecordingFragment.FROM_RECORDING, "true");
         else
-            ih.saveExtraFromActivity(Palabras.SCHEDULE_POSITION, null);
+            ih.saveExtraFromActivity(RecordingFragment.IN_RECORDING, null);
 
     }
 }

@@ -66,6 +66,20 @@ public abstract class BaseContentFragment extends BaseFragment {
         });
     }
 
+    protected void requestGetPatientData() {
+        mContentRequestManager.requestGetPatientData(new ContentRequestManager.OnGetPatientDataListener() {
+            @Override
+            public void onGetPatientDataLoaded(String result) {
+                onGetPatientDataSuccess(result);
+            }
+
+            @Override
+            public void onGetPatientDataError(String throwable) {
+                onGetPatientDataFail(throwable);
+            }
+        });
+    }
+
     protected void requestGetSpetialistSchedules() {
         mContentRequestManager.requestGetSpetialistSchedules(new ContentRequestManager.OnGetSpetialistSchedulesListener() {
             @Override
@@ -184,6 +198,12 @@ public abstract class BaseContentFragment extends BaseFragment {
     }
 
     public void onGetSpetialistDataFail(String response) {
+    }
+
+    public void onGetPatientDataSuccess(String response) {
+    }
+
+    public void onGetPatientDataFail(String response) {
     }
 
     public void onGetSpetialistSchedulesSuccess(String response) {

@@ -15,7 +15,7 @@ import com.pt.myeeg.services.database.InfoHandler;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by ing_ragde on 04/09/17.
+ * Created by Jorge Zepeda Tinoco on 04/09/17.
  */
 
 public class CountDown extends Service {
@@ -62,7 +62,7 @@ public class CountDown extends Service {
                 InfoHandler ih = new InfoHandler(getApplication());
 
                 ih.saveExtraFromActivity(RecordingFragment.RECORDING, "false");
-                ih.saveExtraFromActivity(Palabras.SCHEDULE_POSITION, null);
+                ih.saveExtraFromActivity(RecordingFragment.IN_RECORDING, null);
 
                 sendBroadcast(bi);
             }

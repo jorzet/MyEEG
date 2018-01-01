@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
@@ -62,7 +63,7 @@ public class BluetoothService {
     private static final String ERROR_IN_SENDING_USER_INFO = "Error, no se pudó enviar la información de usuario";
     private static final String ERROR_IN_SENDING_STATUS = "Error, no se pudo iniciar la grabacion";
 
-    Activity mActivity;
+    private Context mContext;
 
     private String mJsonTestingConnectionError;
     private String mLinkedError;
@@ -73,8 +74,8 @@ public class BluetoothService {
         void onBluetoothReciver();
     }
 
-    public BluetoothService(Activity activity, String MacAddress){
-        this.mActivity = activity;
+    public BluetoothService(Context context, String MacAddress){
+        this.mContext = context;
         this.mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mmDevice = mBluetoothAdapter.getRemoteDevice(MacAddress);
     }
@@ -189,8 +190,8 @@ public class BluetoothService {
         } catch (IOException e) {
             e.printStackTrace();
             //setErrorInSendingStatus(ERROR_IN_SENDING_STATUS);
+            return ERROR_IN_SENDING;
         }
-        return ERROR_IN_SENDING;
     }
 
     public int sendUserData(){
@@ -238,7 +239,7 @@ public class BluetoothService {
     }
 
     private String getUserInformation(){
-        InfoHandler ih = new InfoHandler(mActivity);
+        InfoHandler ih = new InfoHandler(mContext);
         Paciente paciente = ih.getPatientInfo();
         Cita cita = ih.getCurrentScheduele();
 

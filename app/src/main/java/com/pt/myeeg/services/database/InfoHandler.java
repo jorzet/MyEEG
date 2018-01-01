@@ -86,6 +86,12 @@ public class InfoHandler {
         db.storeJSONSpetialist(newJson);
     }
 
+    public void savePatientInfo(String json){
+        DataBase db = new DataBase(mContext);
+        Log.d("MyTAG","json: "+ json);
+        db.storeJSONPatient(json);
+    }
+
     public Paciente getPatientInfo(){
         DataBase db = new DataBase(mContext);
         Log.i("MyTAG: ",db.getJsonPatient() );

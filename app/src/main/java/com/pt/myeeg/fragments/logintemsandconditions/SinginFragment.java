@@ -179,7 +179,9 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
             } else {
                 ih.savePatientAndToken(response);
                 ih.saveIsMedic(false);
-                requestGetPatientSchedules();
+
+                requestGetPatientData();
+
                 //new GetPatientSchedules().execute();
             }
         } else {
@@ -208,6 +210,21 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
     @Override
     public void onGetSpetialistDataFail(String response) {
         super.onGetSpetialistDataFail(response);
+        showErrorMessage(response);
+    }
+
+    @Override
+    public void onGetPatientDataSuccess(String response) {
+        super.onGetPatientDataSuccess(response);
+        Log.i("MyTAG: ", response);
+        new InfoHandler(getContext()).savePatientInfo(response);
+        requestGetPatientSchedules();
+
+    }
+
+    @Override
+    public void onGetPatientDataFail(String response) {
+        super.onGetPatientDataFail(response);
         showErrorMessage(response);
     }
 

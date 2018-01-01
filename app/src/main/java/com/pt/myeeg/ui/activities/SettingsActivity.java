@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.RoundedImageView;
@@ -41,6 +42,7 @@ public class SettingsActivity extends BaseActivityLifecycle{
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
 
+    private TextView mSaveSettings;
     private EditText mUserName;
     private EditText mUserFirstLastName;
     private EditText mUserSecondLastName;
@@ -65,6 +67,7 @@ public class SettingsActivity extends BaseActivityLifecycle{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_fragment);
 
+        mSaveSettings = (TextView) findViewById(R.id.save_changes_settings);
         mUserName = (EditText) findViewById(R.id.edit_user_name);
         mUserFirstLastName = (EditText) findViewById(R.id.edit_user_fistLastName);
         mUserSecondLastName = (EditText) findViewById(R.id.edit_user_secondLastName);
@@ -84,6 +87,7 @@ public class SettingsActivity extends BaseActivityLifecycle{
 
         loadUserData();
 
+        mSaveSettings.setOnClickListener(mSaveListener);
         mChangeProfilePhoto.setOnClickListener(mChangePhoto);
         mBackButton.setOnClickListener(backAction);
 
@@ -129,6 +133,13 @@ public class SettingsActivity extends BaseActivityLifecycle{
             mProfilePhoto.setImageBitmap(bmp);
         }
     }
+
+    private View.OnClickListener mSaveListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            saveChanges();
+        }
+    };
 
     private ImageView.OnClickListener mChangePhoto = new View.OnClickListener() {
         @Override
@@ -251,4 +262,13 @@ public class SettingsActivity extends BaseActivityLifecycle{
         bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
         //user.setFotografia(stream.toByteArray());
     }
+
+    private void saveChanges() {
+        if (isMedic) {
+
+        } else {
+
+        }
+    }
+
 }

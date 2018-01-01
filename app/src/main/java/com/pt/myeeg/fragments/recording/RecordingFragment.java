@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,10 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
+import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.services.android.CountDown;
 import com.pt.myeeg.services.bluetoothservice.BluetoothService;
 import com.pt.myeeg.services.database.InfoHandler;
@@ -36,17 +37,21 @@ import java.util.concurrent.TimeUnit;
  * Created by Jorge Zepeda Tinoco on 09/07/17.
  */
 
-public class RecordingFragment extends BaseFragment {
+public class RecordingFragment extends BaseContentFragment{
     public static final String FROM_RECORDING = "from_recording";
+    public static final String TO_RECORDING = "to_recording";
     public static final String RECORDING = "recording_fragment";
+    public static final String IN_RECORDING = "in_recording";
     public static final String CURRENT_TIME = "current_time";
+
+    public static final int VIBRATION_TIME = 1000; // one second
 
     private TextView mPorcentageProgress;
     private ProgressBar mProgressBarCircle;
     private TextView mChronometerRecording;
     private TextView mTotalTimeRecording;
     private ImageView mStartRecording;
-    private ImageView mRestartRecording;
+    //private ImageView mRestartRecording;
 
     private static Context context;
 
@@ -62,6 +67,7 @@ public class RecordingFragment extends BaseFragment {
     private CountDownTimer mCountDownTimer;
     private boolean isRecording = false;
     private boolean isNotificationAble = false;
+    private boolean isCasting = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,10 +88,10 @@ public class RecordingFragment extends BaseFragment {
         mChronometerRecording = (TextView) rootView.findViewById(R.id.chronometer_recording);
         mTotalTimeRecording = (TextView) rootView.findViewById(R.id.total_time);
         mStartRecording = (ImageView) rootView.findViewById(R.id.start_recording);
-        mRestartRecording = (ImageView) rootView.findViewById(R.id.restart_recording);
+        //mRestartRecording = (ImageView) rootView.findViewById(R.id.restart_recording);
 
         mStartRecording.setOnClickListener(mStartStopRecordingListener);
-        mRestartRecording.setOnClickListener(mRestartRecordingListener);
+        //mRestartRecording.setOnClickListener(mRestartRecordingListener);
 
         InfoHandler myHandler = new InfoHandler(getContext());
         String[] values = myHandler.getExtraStored(Palabras.SCHEDULE_POSITION).split("-");
@@ -93,6 +99,8 @@ public class RecordingFragment extends BaseFragment {
         String duracion = c.getDuracion();
         totalTimeCountInMilliSeconds = StringToHMSInt(duracion);
         mTotalTimeRecording.setText(duracion);
+
+        int recording = getActivity().getIntent().getIntExtra(RECORDING,0);
 
         /*if(Boolean.parseBoolean(new InfoHandler(getContext()).getExtraStored(RecordingFragment.RECORDING))){
             mStartRecording.setVisibility(View.GONE);
@@ -113,6 +121,11 @@ public class RecordingFragment extends BaseFragment {
 
                     if (isNotificationAble)
                         addNotification(false);
+
+                    isCasting = true;
+
+                    mStartRecording.setImageResource(mStartStopRecordingIcon[1]);
+
                 } else if (intent.getBooleanExtra(CountDown.COUNT_DOWN_FINISHED, false)) {
                     mProgressBarCircle.setProgress(0);
                     mChronometerRecording.setText("00:00:00");
@@ -120,6 +133,7 @@ public class RecordingFragment extends BaseFragment {
                     //setProgressBarValues();
                     mStartRecording.setVisibility(View.GONE);
                     addNotification(true);
+                    isCasting = false;
                 }
             }
         }
@@ -137,7 +151,9 @@ public class RecordingFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
-        getActivity().stopService(new Intent(getActivity(), CountDown.class));
+        //getActivity().stopService(new Intent(getActivity(), CountDown.class));
+        //if(isCasting)
+        //    br.abortBroadcast();
         Log.i(TAG, "Stopped service");
         super.onDestroy();
     }
@@ -162,6 +178,10 @@ public class RecordingFragment extends BaseFragment {
 
                                     if (isNotificationAble)
                                         addNotification(false);
+                                    isCasting = true;
+
+                                    mStartRecording.setImageResource(mStartStopRecordingIcon[1]);
+
                                 } else if (intent.getBooleanExtra(CountDown.COUNT_DOWN_FINISHED, false)) {
                                     mProgressBarCircle.setProgress(0);
                                     mChronometerRecording.setText("00:00:00");
@@ -169,6 +189,7 @@ public class RecordingFragment extends BaseFragment {
                                     //setProgressBarValues();
                                     mStartRecording.setVisibility(View.GONE);
                                     addNotification(true);
+                                    isCasting = false;
                                 }
                             }
                         }
@@ -189,17 +210,20 @@ public class RecordingFragment extends BaseFragment {
         NotificationManager notificationManager = (NotificationManager) getContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(0);
+        new InfoHandler(getContext()).saveExtraFromActivity(RecordingFragment.FROM_RECORDING, "false");
     }
 
 
     private void addNotification(boolean isFinished) {
         NotificationCompat.Builder builder;
-        if(isFinished)
+        if(isFinished) {
+            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(RecordingFragment.VIBRATION_TIME);
             builder = new NotificationCompat.Builder(getContext())
-                            .setSmallIcon(R.drawable.ic_chronometer_notification)
-                            .setContentTitle("Grabación Finalizada")
-                            .setContentText("Total de tiempo: ");
-        else
+                    .setSmallIcon(R.drawable.ic_chronometer_notification)
+                    .setContentTitle("Grabación Finalizada")
+                    .setContentText("Total de tiempo: ");
+        } else
 
             builder = new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_chronometer_notification)
@@ -241,18 +265,33 @@ public class RecordingFragment extends BaseFragment {
                 String jsonDevices = ih.getPatientDevicesJson();
                 ArrayList<Dispositivo> dispositivos = ih.getPatientDevices(jsonDevices, Dispositivo.class);
                 String raspberryMacAddress="";
-                for(int i=0;i<dispositivos.size();i++)
-                    if(dispositivos.get(i).getDeviceName().toLowerCase().equals("raspberry"))
+
+                for (int i=0;i<dispositivos.size();i++) {
+                    if (dispositivos.get(i).getDeviceName().toLowerCase().equals("raspberry")) {
                         raspberryMacAddress = dispositivos.get(i).getDeviceMacAddress();
-                BluetoothService bluetoothService = new BluetoothService(getActivity(),raspberryMacAddress);
-                bluetoothService.connect();
-                if(bluetoothService.sendData("1")==BluetoothService.DATA_SUCESSFULLY_SENDED) {
-                    System.out.println("iniciar grabacion");
-                } else {
-                    System.out.println("termina grabacion");
+                    }
                 }
 
-                //startCountDownTimer();
+                if (!raspberryMacAddress.equals("")) {
+
+
+                    //BluetoothConnectionTask mConnection =
+                    //        BluetoothConnectionTask.getInstance(getActivity(), raspberryMacAddress);
+
+
+                    BluetoothService bluetoothService = new BluetoothService(getActivity(), raspberryMacAddress);
+                    bluetoothService.connect();
+
+                    if (bluetoothService.sendData("1") == BluetoothService.DATA_SUCESSFULLY_SENDED) {
+                        System.out.println("iniciar grabacion");
+                    } else {
+                        System.out.println("error al iniciar grabacion");
+                    }
+
+                    startCountDownTimer();
+                } else {
+                    System.out.println("No tiene dispositivo de adquisicion asociado");
+                }
             }
             isRecording = !isRecording;
         }

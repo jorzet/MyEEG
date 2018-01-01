@@ -14,7 +14,7 @@ public class MetadataInfo {
 
     //public static final String URL = "http://148.204.86.36:8084/WSEEG/terminalproject/electroencephalography"; // SEPI UPIITA network
     //public static final String URL = "http://10.7.6.207:8084/WSEEG/terminalproject/electroencephalography";// AMCO network
-    public static final String URL = "http://192.168.1.77:8084/EEG_Final_1/terminalproject/electroencephalography"; // Home network
+    public static final String URL = "http://192.168.1.70:8084/EEG_Final_1/terminalproject/electroencephalography"; // Home network
     //public static final String URL = "http://192.168.43.74:8084/EEG_Final_1/terminalproject/electroencephalography"; // Smartphone network
 
     public static final String SING_IN = "/singin/";
@@ -63,10 +63,11 @@ public class MetadataInfo {
                 JSONBuilder.buildSingupJson(spetialist));
     }
 
-    public String requestGetPatientData(int idPatient, Context context){
-        return HttpRequest.sendGetRequest(MetadataInfo.URL +
-                MetadataInfo.GET_PATIENT_DATA +
-                idPatient);
+    public static String requestGetPatientData(String url, Context context){
+        if(HttpRequest.isConnected(context))
+            return HttpRequest.sendGetRequest(url);
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
     }
 
     public static String requestGetSpetialistData(String url, Context context){

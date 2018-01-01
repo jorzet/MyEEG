@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import com.pt.myeeg.R;
 
 /**
- * Created by ing_ragde on 05/09/17.
+ * Created by Jorge Zepeda Tinoco on 05/09/17.
  */
 
 public class ErrorDialog {
@@ -60,4 +60,53 @@ public class ErrorDialog {
                 .setIcon(mContext.getDrawable(R.drawable.ic_alert))
                 .show();
     }
+
+    public void showErroCanNotOpenSchedule() {
+        builder.setTitle("Alerta")
+                .setMessage("No puedes iniciar una grabacion anterior a la fecha actual")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
+
+    public void showErrorNotSheduleDate(String date, String time) {
+        builder.setTitle("Alerta")
+                .setMessage("Aun no es tiempo de tu grabacion, cita programada para el dia: "+ date + " a las: "+ time)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
+
+    public void showErrorNotAllowRecording() {
+        builder.setTitle("Alerta")
+                .setMessage("No se puede hacer una grabacion de citas pasadas")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
+
+    public void showErrorNotTimeSchedule(String time) {
+        builder.setTitle("Alerta")
+                .setMessage("Aun no es tiempo de tu grabacion, cita programada para las: "+ time)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
+
 }
