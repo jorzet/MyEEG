@@ -4,8 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.pt.myeeg.models.Especialista;
+import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.models.Usuario;
+
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by Jorge Zepeda Tinoco on 13/08/17.
  */
@@ -34,6 +38,9 @@ public class MetadataInfo {
     public static final String GET_GENERAL_RESULTS = "/getgeneralresultsbyschedule/";
     public static final String GET_SEGMENT_RESULTS_BY_SECOND = "/getresultsegmentbysecond/";
     public static final String GET_SEGMENT_RESULTS_BY_INTERVAL = "/getresultsegmentbyinterval/";
+
+    public static final String UPDATE_SPETIALIST_DATA = "/requestupdatespetialistdata/";
+    public static final String UPDATE_PATIENT_DATA = "/requestupdatepatientdata/";
 
     public static String requestLogin(String url, Context context){
         /*TODO obtain the hash password*/
@@ -129,6 +136,35 @@ public class MetadataInfo {
         if(HttpRequest.isConnected(context)) {
             Log.d("SegmentResults","sendGetrequest");
             return HttpRequest.sendGetRequest(url);
+        }
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
+    }
+
+    public String requestUpdateSpetialistData(Especialista spetialist, Context context) {
+        if(HttpRequest.isConnected(context)) {
+            Log.d("SegmentResults","sendGetrequest");
+            try {
+                return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.UPDATE_SPETIALIST_DATA + java.net.URLEncoder.encode(JSONBuilder.buildJsonFromObject(spetialist),"UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        else
+            return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;
+    }
+
+    public String requestUpdatePatientData(Paciente patient, Context context) {
+        if(HttpRequest.isConnected(context)) {
+            Log.d("SegmentResults","sendGetrequest");
+            try {
+                return HttpRequest.sendGetRequest(MetadataInfo.URL + MetadataInfo.UPDATE_PATIENT_DATA + java.net.URLEncoder.encode(JSONBuilder.buildJsonFromObject(patient),"UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return null;
+
         }
         else
             return Palabras.ERROR_FROM_NETWORK_NOT_CONNECTED;

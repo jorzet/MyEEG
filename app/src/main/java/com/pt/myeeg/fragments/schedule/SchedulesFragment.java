@@ -96,18 +96,23 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
     private void setData() {
         stringScheduleList = new ArrayList<>();
         String savedSchedules = new InfoHandler(getContext()).getPatientSchedulesJson();
-        if(!savedSchedules.contains("Error")) {
-            citas = new InfoHandler(getContext()).getPatientSchedules(savedSchedules, Cita.class);
-            if (citas != null) {
-                for (int i = 0; i < citas.size(); i++) {
-                    stringScheduleList.add(citas.get(i).getDayAndMonthFormath());
+        if (savedSchedules != null) {
+            if (!savedSchedules.contains("Error")) {
+                citas = new InfoHandler(getContext()).getPatientSchedules(savedSchedules, Cita.class);
+                if (citas != null) {
+                    for (int i = 0; i < citas.size(); i++) {
+                        stringScheduleList.add(citas.get(i).getDayAndMonthFormath());
+                    }
                 }
+            } else {
+                mErrorSchedule.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                mErrorSchedule.setText(savedSchedules);
             }
-        }
-        else{
+        } else {
             mErrorSchedule.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
-            mErrorSchedule.setText(savedSchedules);
+            mErrorSchedule.setText(Palabras.ERROR_EMTY_SCHEDULES);
         }
     }
 

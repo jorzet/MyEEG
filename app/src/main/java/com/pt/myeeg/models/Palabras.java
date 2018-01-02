@@ -43,6 +43,9 @@ public class Palabras {
     public static final String ERROR_PASSWORDS_NOT_MATCH = "Error, las contraseñas no coinciden";
     public static final String ERROR_GENDER_NOT_CHECKED = "Error, selecciona tu genero";
 
+    public static final String ERROR_EMTY_SCHEDULES = "Aun no tienes citas asignadas";
+    public static final String NOT_SCHEDULES_YET = "Este paciciente no tiene asignada una cita aun";
+
     /* restrt password */
     public static final String ERROR_EMTY_EMAIL = "Error, por favor ingresa tu email";
 

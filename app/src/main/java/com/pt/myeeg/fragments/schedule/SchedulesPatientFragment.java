@@ -85,21 +85,26 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
         stringScheduleList = new ArrayList<>();
         mScheduleIds = new ArrayList<>();
         String savedSchedules = new InfoHandler(getContext()).getPatientSchedulesJson();
-        if(!savedSchedules.contains("Error")) {
-            citas = new InfoHandler(getContext()).getPatientSchedules(savedSchedules, Cita.class);
-            if (citas != null) {
-                for (int i = 0; i < citas.size(); i++) {
-                    if(citas.get(i).getPaciente().getId() == idPatient) {
-                        stringScheduleList.add(citas.get(i).getDayAndMonthFormath());
-                        mScheduleIds.add(citas.get(i).getFolioCita());
+        if (savedSchedules != null) {
+            if (!savedSchedules.contains("Error")) {
+                citas = new InfoHandler(getContext()).getPatientSchedules(savedSchedules, Cita.class);
+                if (citas != null) {
+                    for (int i = 0; i < citas.size(); i++) {
+                        if (citas.get(i).getPaciente().getId() == idPatient) {
+                            stringScheduleList.add(citas.get(i).getDayAndMonthFormath());
+                            mScheduleIds.add(citas.get(i).getFolioCita());
+                        }
                     }
                 }
+            } else {
+                mErrorSchedule.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                mErrorSchedule.setText(savedSchedules);
             }
-        }
-        else{
+        } else {
             mErrorSchedule.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
-            mErrorSchedule.setText(savedSchedules);
+            mErrorSchedule.setText(Palabras.NOT_SCHEDULES_YET);
         }
     }
 

@@ -239,6 +239,7 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
     public void onGetSpetialistSchedulesFail(String response) {
         super.onGetSpetialistSchedulesFail(response);
         showErrorMessage(response);
+        goHomeActivity();
     }
 
     @Override
@@ -253,6 +254,7 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
     public void onGetPatientsBySpetialistFail(String response) {
         super.onGetPatientsBySpetialistFail(response);
         showErrorMessage(response);
+        goHomeActivity();
     }
 
     @Override
@@ -267,6 +269,7 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
     public void onGetPatientSchedulesFail(String response) {
         super.onGetPatientSchedulesFail(response);
         showErrorMessage(response);
+        requestGetDevices();
     }
 
     @Override
@@ -288,6 +291,7 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
     public void onGetDevicesFail(String response) {
         super.onGetDevicesFail(response);
         showErrorMessage(response);
+        goHomeActivity();
     }
 
 

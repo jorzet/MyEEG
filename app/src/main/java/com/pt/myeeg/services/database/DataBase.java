@@ -101,6 +101,10 @@ public class DataBase extends SQLiteOpenHelper{
         return true;
     }
 
+    public void removeSessionData() {
+        mContext.getSharedPreferences(DATABASE_NAME, 0).edit().clear().commit();
+    }
+
     public boolean storePatient(Paciente patient){
         Log.i("MyTAG ","storePatient");
         try{

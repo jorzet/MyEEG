@@ -68,7 +68,11 @@ public class PatientsFragment extends BaseContentFragment implements AdapterView
         listView.setOnItemClickListener(this);
 
         loadPatients();
-        if(mPatients.isEmpty()) {
+        if (mPatients == null) {
+            mErrorPatients.setText(Palabras.WITHOUT_PATIENTS);
+            listView.setVisibility(View.GONE);
+            mErrorPatients.setVisibility(View.VISIBLE);
+        } else if(mPatients.isEmpty()) {
             mErrorPatients.setText(Palabras.WITHOUT_PATIENTS);
             listView.setVisibility(View.GONE);
             mErrorPatients.setVisibility(View.VISIBLE);

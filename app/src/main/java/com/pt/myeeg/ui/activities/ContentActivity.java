@@ -294,7 +294,7 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
     }
 
     private void removeSessionData(){
-        new InfoHandler(getApplicationContext()).removePatientAndToken();
+        new InfoHandler(getApplicationContext()).removeAllSessionData();
     }
 
 }

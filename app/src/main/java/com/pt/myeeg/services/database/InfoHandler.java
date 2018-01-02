@@ -35,6 +35,11 @@ public class InfoHandler {
         this.mContext = context;
     }
 
+    public void removeAllSessionData() {
+        DataBase db = new DataBase(mContext);
+        db.removeSessionData();
+    }
+
     public void savePatientAndToken(String json){
         DataBase db = new DataBase(mContext);
 
@@ -145,13 +150,17 @@ public class InfoHandler {
     public ArrayList<Paciente> getPatientsSpetialist(){
         DataBase db = new DataBase(mContext);
         String patientsJson = db.getJsonPatientsSpetialist();
-        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
-        ArrayList<Paciente> patients = new ArrayList<>();
-        if (objects != null) {
-            for (int i = 0; i < objects.size(); i++)
-                patients.add((Paciente) objects.get(i));
-            return patients;
+        if (patientsJson != null) {
+            ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
+            ArrayList<Paciente> patients = new ArrayList<>();
+            if (objects != null) {
+                for (int i = 0; i < objects.size(); i++)
+                    patients.add((Paciente) objects.get(i));
+                return patients;
+            } else
+                return null;
         }
+
         return null;
     }
 
@@ -172,29 +181,50 @@ public class InfoHandler {
     public int getPatientsCount(){
         DataBase db = new DataBase(mContext);
         String patientsJson = db.getJsonPatientsSpetialist();
-        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
-        return objects.size();
+        if (patientsJson != null) {
+            ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(patientsJson, Paciente.class);
+            if (objects != null)
+                return objects.size();
+            else
+                return 0;
+        } else
+            return 0;
     }
 
     public int getSpetialistSchedulesCount(){
         DataBase db = new DataBase(mContext);
         String schedules = db.getJsonPatientSchedules();
-        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
-        return objects.size();
+        if (schedules != null) {
+            ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+            if (objects != null)
+                return objects.size();
+            else
+                return 0;
+        } else
+            return 0;
     }
 
     public int getPatientSchedulesCount(){
         DataBase db = new DataBase(mContext);
         String schedules = db.getJsonPatientSchedules();
-        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
-        return objects.size();
+        if (schedules != null) {
+            ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+            if (objects != null)
+                return objects.size();
+            else
+                return 0;
+        } else
+            return 0;
     }
 
     public String getLastPatientSchedule(){
         DataBase db = new DataBase(mContext);
         String schedules = db.getJsonPatientSchedules();
-        ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
-        return ((Cita)objects.get(objects.size()-1)).getFecha();
+        if (schedules != null) {
+            ArrayList<Object> objects = JSONBuilder.getArrayListFromJsonArray(schedules, Cita.class);
+            return ((Cita) objects.get(objects.size() - 1)).getFecha();
+        } else
+            return "";
     }
 
     public ArrayList<Dispositivo> getPatientDevices(String schedules, Class clase){
