@@ -7,12 +7,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.pt.myeeg.R;
+import com.pt.myeeg.adapters.NonScrollListView;
+import com.pt.myeeg.adapters.SegmentResultAdapter;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.ResultadosSegmento;
 import com.pt.myeeg.services.database.InfoHandler;
@@ -27,9 +30,11 @@ import java.util.List;
 
 public class SegmentResultsFragment extends BaseContentFragment {
 
-    ArrayList<ResultadosSegmento> segmentResults;
+    private ArrayList<ResultadosSegmento> segmentResults;
 
-    LineChart mPlot;
+    private LineChart mPlot;
+    private NonScrollListView mListSegmentResults;
+
 
     @Nullable
     @Override
@@ -40,6 +45,7 @@ public class SegmentResultsFragment extends BaseContentFragment {
         View rootView = inflater.inflate(R.layout.segment_results_fragment, container, false);
 
         mPlot = (LineChart) rootView.findViewById(R.id.seconds_plot);
+        mListSegmentResults = (NonScrollListView) rootView.findViewById(R.id.list_item_segment_results);
 
         segmentResults =  new InfoHandler(getContext()).getSegmetResultsArrayList();
         List<Entry> entries = new ArrayList<Entry>();
@@ -69,6 +75,9 @@ public class SegmentResultsFragment extends BaseContentFragment {
         LineData lineData = new LineData(dataSet);
         mPlot.setData(lineData);
         mPlot.invalidate(); // refresh
+
+        if(mListSegmentResults != null)
+            mListSegmentResults.setAdapter(new SegmentResultAdapter(getContext(), segmentResults));
 
         return rootView;
     }

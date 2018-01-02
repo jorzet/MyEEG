@@ -17,6 +17,7 @@ public class ResultadosSegmento {
     private String tipoOnda;
     private String senal;
     private double[] doubleSignal;
+    private boolean anormal;
 
     public ResultadosSegmento(){}
 
@@ -46,6 +47,10 @@ public class ResultadosSegmento {
 
     public String getSenal(){
         return this.senal;
+    }
+
+    public boolean isAnormal( ) {
+        return this.anormal;
     }
 
     public double[] getDoubleSignal() {
@@ -111,6 +116,14 @@ public class ResultadosSegmento {
      */
     public void setSenal(String senal){
         this.senal = senal;
+    }
+
+    /**
+     *
+     * @param anormal
+     */
+    public void setIsAnormal(boolean anormal){
+        this.anormal = anormal;
     }
 
 }
