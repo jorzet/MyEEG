@@ -38,6 +38,7 @@ public class InfoHandler {
     public void removeAllSessionData() {
         DataBase db = new DataBase(mContext);
         db.removeSessionData();
+        removeToken();
     }
 
     public void savePatientAndToken(String json){
@@ -76,7 +77,7 @@ public class InfoHandler {
         AccessToken.setAccessToken(token, mContext);
     }
 
-    public void removePatientAndToken(){
+    public void removeToken(){
         AccessToken.setAccessToken(null,mContext);
     }
 
@@ -99,7 +100,8 @@ public class InfoHandler {
 
     public Paciente getPatientInfo(){
         DataBase db = new DataBase(mContext);
-        Log.i("MyTAG: ",db.getJsonPatient() );
+        //Log.i("MyTAG: ",db.getJsonPatient() );
+        System.out.println("paciente: "+db.getJsonPatient());
         return (Paciente) JSONBuilder.getObjectFromJson(db.getJsonPatient(), Paciente.class);
     }
 

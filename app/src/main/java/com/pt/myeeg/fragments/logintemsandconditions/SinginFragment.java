@@ -188,7 +188,7 @@ public class SinginFragment extends BaseContentFragment implements View.OnClickL
             mErrorLogin.setText(Palabras.ERROR_FROM_WEB_WERVICE);
             mProgressBar.setVisibility(View.GONE);
             mLoginContent.setVisibility(View.VISIBLE);
-            new InfoHandler(getContext()).removePatientAndToken();
+            new InfoHandler(getContext()).removeToken();
         }
     }
 
