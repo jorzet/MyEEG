@@ -72,10 +72,12 @@ public class ScheduleFragment extends BaseFragment{
         InfoHandler ih = new InfoHandler(getContext());
         String jsonDevices = ih.getPatientDevicesJson();
         ArrayList<Dispositivo> dispositivos = ih.getPatientDevices(jsonDevices, Dispositivo.class);
-        String raspberryMacAddress="";
-        for(int i=0;i<dispositivos.size();i++)
-            if(dispositivos.get(i).getDeviceName().toLowerCase().equals("raspberry"))
+        String raspberryMacAddress = "";
+        for (int i=0;i<dispositivos.size();i++) {
+            if (dispositivos.get(i).getDeviceName().toLowerCase().equals("raspberry")) {
                 raspberryMacAddress = dispositivos.get(i).getDeviceMacAddress();
+            }
+        }
         mBluetoothService = new BluetoothService(getActivity(),raspberryMacAddress);
         setBluetoothService(mBluetoothService);
 

@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.SchedulesAdapter;
+import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.fragments.results.GeneralResultsFragment;
 import com.pt.myeeg.models.Cita;
@@ -26,13 +28,14 @@ import static com.pt.myeeg.models.Palabras.ID_PATIENT;
  * Created by Jorge Zepeda Tinoco on 22/12/17.
  */
 
-public class SchedulesPatientFragment extends BaseFragment implements AdapterView.OnItemClickListener{
+public class SchedulesPatientFragment extends BaseContentFragment implements AdapterView.OnItemClickListener{
 
     /* for Bundle */
     public static final String DATE_COLOR = "date_color";
     public static final String DATE_TEXT = "date_text";
 
     /* for View */
+    private ImageView mRefresh;
     private ListView listView;
     private TextView mErrorSchedule;
     private ArrayList<String> stringScheduleList;
@@ -56,6 +59,7 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
 
         View rootView = inflater.inflate(R.layout.schedules_fragment, container, false);
 
+        mRefresh = (ImageView) rootView.findViewById(R.id.refresh_view);
         listView = (ListView) rootView.findViewById(R.id.list_schedule);
         mErrorSchedule = (TextView) rootView.findViewById(R.id.schedule_error);
         listView.setOnItemClickListener(this);
@@ -73,6 +77,9 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
             adapter = new SchedulesAdapter(getContext(), R.layout.item_schedule_listview, stringScheduleList);
             listView.setAdapter(adapter);
         }
+
+        mRefresh.setOnClickListener(mRefreshListener);
+
         return rootView;
     }
 
@@ -117,5 +124,35 @@ public class SchedulesPatientFragment extends BaseFragment implements AdapterVie
 
     private void goGeneralResultsFragment(){
         getFragmentManager().beginTransaction().replace(R.id.fragment_container_results, new GeneralResultsFragment()).commit();
+    }
+
+    private View.OnClickListener mRefreshListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            loadData();
+        }
+    };
+
+    private void loadData() {
+        requestGetPatientSchedules();
+    }
+
+    private void loadSchedules() {
+
+    }
+
+    @Override
+    public void onGetPatientSchedulesSuccess(String response) {
+        super.onGetPatientSchedulesSuccess(response);
+        new InfoHandler(getContext()).savePatientSchedules(response);
+
+        adapter = new SchedulesAdapter(getContext(), R.layout.item_schedule_listview, stringScheduleList);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onGetPatientSchedulesFail(String response) {
+        super.onGetPatientSchedulesFail(response);
     }
 }
