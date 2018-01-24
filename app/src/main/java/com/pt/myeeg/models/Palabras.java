@@ -109,6 +109,9 @@ public class Palabras {
 
     public static final String ERROR_NOT_GENERAL_RESULTS = "Error, no existen los resultados generales de esta cita";
 
+    public static final String TESTING_BLUETOOTH_ERROR = "Por favor enciende todos tus dispositivos y asegurate de que tengan la suficiente bateria";
+
+
     /*  */
 
     public static final String SELECT_A_CHANNEL = "Seleccione un canal";

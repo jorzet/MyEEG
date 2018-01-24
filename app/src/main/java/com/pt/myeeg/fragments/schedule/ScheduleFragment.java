@@ -193,12 +193,14 @@ public class ScheduleFragment extends BaseFragment{
                         } else if (response == BluetoothService.CODE_TESTING_ERROR) {
                             String jsonError = mBluetoothService.getJsonTestingConnectionError();
                             // show the errors in app with adapter and listview
-                            goCalibrationFragment();
+                            //goCalibrationFragment();
+                            mConnectingToDevice.setVisibility(View.GONE);
                             mTestError.setText(jsonError);
                             mTestError.setVisibility(View.VISIBLE);
                             mTestButton.setVisibility(View.VISIBLE);
                         } else if (response == BluetoothService.ERROR_IN_SENDING) {
                             String error = mBluetoothService.getErrorInSending();
+                            mConnectingToDevice.setVisibility(View.GONE);
                             mTestError.setText(error);
                             mTestError.setVisibility(View.VISIBLE);
                             mTestButton.setVisibility(View.VISIBLE);
