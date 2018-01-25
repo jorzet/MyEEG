@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
@@ -149,12 +150,21 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
                 e.printStackTrace();
             }
 
-            Date currentTime = Calendar.getInstance().getTime();
-            currentTime.setTime(0);
-            System.out.println("currentTime: "+currentTime);
+
+
+
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+            Date currentLocalTime = cal.getTime();
+            DateFormat datee = new SimpleDateFormat("HH:mm a");
+
+            System.out.println("currentTime: "+currentLocalTime);
+// you can get seconds by adding  "...:ss" to it
+            datee.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+            String localTime = datee.format(currentLocalTime);
 
             if(date != null) {
-                if (date.getYear() == currentTime.getYear() && date.getMonth() == currentTime.getMonth() && date.getDay() == currentTime.getDay()) {
+                if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() == currentLocalTime.getDay()) {
                     Date currentDate = Calendar.getInstance().getTime();
                     long currentHour = currentDate.getTime();
 
@@ -197,10 +207,10 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
                             new ErrorDialog(getContext()).showErrorNotDevices();
                         }
                     }
-                } else if (date.getYear() > currentTime.getYear() && date.getMonth() > currentTime.getMonth() && date.getDay() > currentTime.getDay()) {
+                } else if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() > currentLocalTime.getDay()) {
                     System.out.println("Aun no es tiempo de tu grabacion, cita programada para el dia: "+ citas.get(position).getFecha() + " a las: "+ citas.get(position).getHora());
                     new ErrorDialog(getContext()).showErrorNotSheduleDate(citas.get(position).getFecha(), citas.get(position).getHora());
-                } else if (date.getYear() < currentTime.getYear() && date.getMonth() < currentTime.getMonth() && date.getDay() < currentTime.getDay()) {
+                } else if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() < currentLocalTime.getDay()) {
                     System.out.println("No se puede hacer una grabacion de citas pasadas");
                     new ErrorDialog(getContext()).showErrorNotAllowRecording();
                 }
@@ -225,14 +235,18 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
                 e.printStackTrace();
             }
 
-            Date currentTime = Calendar.getInstance().getTime();
-            currentTime.setHours(0);
-            currentTime.setMinutes(0);
-            currentTime.setSeconds(0);
-            System.out.println("currentTime: "+currentTime);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+            Date currentLocalTime = cal.getTime();
+            DateFormat datee = new SimpleDateFormat("HH:mm a");
+
+            System.out.println("currentTime: "+currentLocalTime);
+// you can get seconds by adding  "...:ss" to it
+            datee.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+            String localTime = datee.format(currentLocalTime);
 
             if(date != null) {
-                if (date.getYear() == currentTime.getYear() && date.getMonth() == currentTime.getMonth() && date.getDay() == currentTime.getDay()) {
+                if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() == currentLocalTime.getDay()) {
                     Date currentDate = Calendar.getInstance().getTime();
                     long currentHour = currentDate.getTime();
 
@@ -273,10 +287,10 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
                             new ErrorDialog(getContext()).showErrorNotDevices();
                         }
                     }
-                } else if (date.getYear() > currentTime.getYear() && date.getMonth() > currentTime.getMonth() && date.getDay() > currentTime.getDay()) {
+                } else if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() > currentLocalTime.getDay()) {
                     System.out.println("Aun no es tiempo de tu grabacion, cita programada para el dia: "+ citas.get(position).getFecha() + " a las: "+ citas.get(position).getHora());
                     new ErrorDialog(getContext()).showErrorNotSheduleDate(citas.get(position).getFecha(), citas.get(position).getHora());
-                } else if (date.getYear() < currentTime.getYear() && date.getMonth() < currentTime.getMonth() && date.getDay() < currentTime.getDay()) {
+                } else if (date.getYear() == currentLocalTime.getYear() && date.getMonth() == currentLocalTime.getMonth() && date.getDay() < currentLocalTime.getDay()) {
                     System.out.println("No se puede hacer una grabacion de citas pasadas");
                     new ErrorDialog(getContext()).showErrorNotAllowRecording();
                 }
@@ -290,6 +304,7 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
     @Override
     public void onGetPatientSchedulesSuccess(String response) {
         super.onGetPatientSchedulesSuccess(response);
+        new InfoHandler(getContext()).savePatientSchedules(response);
         setData();
         if(stringScheduleList.isEmpty()) {
             mErrorSchedule.setText("Aun  no tienes citas");
