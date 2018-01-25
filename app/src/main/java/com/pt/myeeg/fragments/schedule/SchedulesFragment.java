@@ -132,6 +132,8 @@ public class SchedulesFragment extends BaseContentFragment implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         InfoHandler myHandler = new InfoHandler(getContext());
         String scheduleRecording = myHandler.getExtraStored(RecordingFragment.IN_RECORDING);
+        String schueduleId = myHandler.getExtraStored(RecordingFragment.SCHEDULE_ID);
+
         if(scheduleRecording!=null) {
 
 

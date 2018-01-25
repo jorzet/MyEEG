@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class RecordingFragment extends BaseContentFragment{
+    public static final String SCHEDULE_ID = "schedule_id";
     public static final String FROM_RECORDING = "from_recording";
     public static final String TO_RECORDING = "to_recording";
     public static final String RECORDING = "recording_fragment";
@@ -297,13 +298,9 @@ public class RecordingFragment extends BaseContentFragment{
         }
     };
 
-    private ImageView.OnClickListener mRestartRecordingListener
-            = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    private void mRestartRecordingListener() {
             stopCountDownTimer();
             startCountDownTimer();
-        }
     };
 
     private void startCountDownTimer() {
