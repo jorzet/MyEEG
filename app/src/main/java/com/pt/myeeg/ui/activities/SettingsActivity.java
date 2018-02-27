@@ -194,7 +194,9 @@ public class SettingsActivity extends BaseActivityLifecycle{
     private ImageView.OnClickListener mChangePhoto = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            selectImage();
+            mErrorUpdate.setText("Servicio no disponible");
+            //new ErrorDialog(getBaseContext()).showErrorServiceNotAvailable();
+            //selectImage();
         }
     };
 

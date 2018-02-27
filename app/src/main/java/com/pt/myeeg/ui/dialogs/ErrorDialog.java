@@ -121,4 +121,16 @@ public class ErrorDialog {
                 .show();
     }
 
+    public void showErrorServiceNotAvailable(){
+        builder.setTitle("Alerta")
+                .setMessage("Servicio no disponible")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(mContext.getDrawable(R.drawable.ic_alert))
+                .show();
+    }
+
 }

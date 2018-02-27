@@ -75,13 +75,6 @@
                     android:layout_alignParentStart="true" />
 
                 <TextView
-                    android:id="@+id/error_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/inputEmail"
-                    android:textColor="@android:color/holo_red_light"/>
-
-                <TextView
                     android:id="@+id/text_user_profile_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,6 +83,15 @@
                     android:textColor="@color/negro"
                     android:textSize="18sp"
                     android:text="Foto de perfil"/>
+
+                <TextView
+                    android:id="@+id/error_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_user_profile_photo"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/holo_red_light"/>
 
                 <ImageView
                     android:id="@+id/change_user_profile_photo"

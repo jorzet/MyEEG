@@ -89,7 +89,7 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
 
         Bundle extras = getIntent().getExtras();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_schedule, new RecordingFragment());
+        ft.replace(R.id.fragment_container_schedule, new ScheduleFragment());
         ft.commit();
 
 
