@@ -3,22 +3,33 @@ package com.pt.myeeg.ui.activities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.pt.myeeg.R;
+import com.pt.myeeg.fragments.content.BaseFragment;
+import com.pt.myeeg.models.Cita;
+import com.pt.myeeg.models.Dispositivo;
+import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
 import com.pt.myeeg.fragments.schedule.ScheduleFragment;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
+import com.pt.myeeg.services.android.CountDown;
 import com.pt.myeeg.services.database.InfoHandler;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by Jorge Zepeda Tinoco on 24/07/17.
@@ -30,6 +41,7 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
     private ImageView mRoundedDate;
     private TextView mDate;
     private Toolbar mToolbar;
+    private Cita schedule;
 
     public static Context mContext;
 
@@ -48,6 +60,8 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
 
         InfoHandler myHandler = new InfoHandler(getApplicationContext());
 
+
+        schedule = myHandler.getCurrentScheduele();
 
         String[] date = myHandler.getExtraStored(SchedulesFragment.DATE_TEXT).split(" ");
         mDate.setText(date[1]);
@@ -102,10 +116,17 @@ public class ContentScheduleActivity extends BaseActivityLifecycle{
     @Override
     public void onBackPressed() {
         InfoHandler ih = new InfoHandler(getApplication());
-        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container_schedule) instanceof RecordingFragment && Boolean.parseBoolean(ih.getExtraStored(RecordingFragment.RECORDING)))
+        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container_schedule) instanceof RecordingFragment
+                && Boolean.parseBoolean(ih.getExtraStored(RecordingFragment.RECORDING))) {
             ih.saveExtraFromActivity(RecordingFragment.FROM_RECORDING, "true");
-        else
+            ih.saveExtraFromActivity(RecordingFragment.SCHEDULE_ID, schedule.getFolioCita() + "");
+        } else {
             ih.saveExtraFromActivity(RecordingFragment.IN_RECORDING, null);
+            ih.saveExtraFromActivity(RecordingFragment.SCHEDULE_ID, null);
+            // when recording finish stop service
+            this.stopService(new Intent(this, CountDown.class));
+            Log.i("ContentScheduleAct", "Stopped service");
+        }
         super.onBackPressed();
     }
 
