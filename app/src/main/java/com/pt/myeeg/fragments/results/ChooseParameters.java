@@ -3,7 +3,6 @@ package com.pt.myeeg.fragments.results;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.models.ResultadosGenerales;
 import com.pt.myeeg.services.database.InfoHandler;
@@ -32,6 +30,7 @@ import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 19/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class ChooseParameters extends BaseContentFragment {

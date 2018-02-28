@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class BluetoothConnectionFragment extends BaseFragment {

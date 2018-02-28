@@ -7,17 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.pt.myeeg.R;
 
-import java.util.List;
-
 /**
  * Created by Jorge Zepeda Tinoco on 24/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class CalibrationCanvas extends android.support.v7.widget.AppCompatImageView{

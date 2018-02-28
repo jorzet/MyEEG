@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 
 /**
  * Created by Jorge Zepeda Tinoco on 30/01/2017.
+ * jorzet.94@gmail.com
  */
 
 public class Utility {

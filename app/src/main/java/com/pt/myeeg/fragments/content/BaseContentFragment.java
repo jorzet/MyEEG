@@ -9,6 +9,7 @@ import com.pt.myeeg.request.ContentRequestManager;
 
 /**
  * Created by Jorge Zepeda Tinoco on 22/12/17.
+ * jorzet.94@gmail.com
  */
 
 public abstract class BaseContentFragment extends BaseFragment {

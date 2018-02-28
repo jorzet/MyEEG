@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jorge Zepeda Tinoco on 01/01/18.
+ * jorzet.94@gmail.com
  */
 
 public class SegmentResultAdapter extends BaseAdapter {

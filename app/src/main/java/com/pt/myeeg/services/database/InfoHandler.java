@@ -13,20 +13,11 @@ import com.pt.myeeg.models.Usuario;
 import com.pt.myeeg.security.AccessToken;
 import com.pt.myeeg.services.webservice.JSONBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 17/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class InfoHandler {

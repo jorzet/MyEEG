@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Jorge Zepeda Tinoco on 15/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class Hash {

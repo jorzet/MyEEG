@@ -6,6 +6,7 @@ import android.widget.BaseAdapter;
 
 /**
  * Created by Jorge on 26/11/17.
+ * jorzet.94@gmail.com
  */
 
 public class PatientResultsAdapter extends BaseAdapter {

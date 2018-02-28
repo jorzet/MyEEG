@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pt.myeeg.R;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jorge Zepeda Tinoco on 16/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class PatientsAdapter extends BaseAdapter{

@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.pt.myeeg.fragments.content.BaseFragment;
 
 /**
  * Created by Jorge on 26/11/17.
+ * jorzet.94@gmail.com
  */
 
 public class PatientScheduleResult extends BaseFragment{

@@ -7,6 +7,7 @@ import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge on 24/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class GetSegmentResultsTask extends AbstractRequestTask {

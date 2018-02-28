@@ -19,6 +19,7 @@ import com.pt.myeeg.services.database.InfoHandler;
 
 /**
  * Created by Jorge Zepeda Tinoco on 26/07/17.
+ * jorzet.94@gmail.com
  * */
 
 public class CalibrationFragment extends BaseFragment {

@@ -1,12 +1,9 @@
 package com.pt.myeeg.fragments.schedule;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +25,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jorge Zepeda Tinoco on 26/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class ScheduleFragment extends BaseFragment{

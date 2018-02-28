@@ -8,6 +8,7 @@ import com.pt.myeeg.services.bluetoothservice.BluetoothService;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class BaseFragment extends Fragment {

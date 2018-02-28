@@ -10,11 +10,11 @@ import android.widget.TextView;
 import com.pt.myeeg.R;
 import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.models.Especialista;
-import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.services.database.InfoHandler;
 
 /**
  * Created by Jorge Zepeda Tinoco on 16/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class ProfileFragmentSpetialist extends BaseFragment{

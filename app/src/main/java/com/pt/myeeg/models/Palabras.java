@@ -2,6 +2,7 @@ package com.pt.myeeg.models;
 
 /**
  * Created by Jorge Zepeda Tinoco on 13/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class Palabras {

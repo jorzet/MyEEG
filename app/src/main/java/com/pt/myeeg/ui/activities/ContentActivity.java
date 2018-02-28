@@ -1,14 +1,11 @@
 package com.pt.myeeg.ui.activities;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -20,10 +17,7 @@ import android.os.Vibrator;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,13 +28,13 @@ import com.pt.myeeg.adapters.RoundedImageView;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
-import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.services.android.CountDown;
 import com.pt.myeeg.services.database.InfoHandler;
 import com.pt.myeeg.ui.dialogs.ErrorDialog;
 
 /**
  * Created by Jorge Zepeda Tinoco on 7/1/2017.
+ * jorzet.94@gmail.com
  */
 
 public class ContentActivity extends BaseActivityLifecycle implements TabLayout.OnTabSelectedListener, View.OnClickListener{
@@ -213,6 +207,7 @@ public class ContentActivity extends BaseActivityLifecycle implements TabLayout.
         }
     }
 
+    @SuppressLint("WrongConstant")
     private void addNotification(boolean isFinished) {
         NotificationCompat.Builder builder;
         if(isFinished) {

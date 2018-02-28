@@ -12,22 +12,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.pt.myeeg.R;
-import com.pt.myeeg.models.Dispositivo;
-import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.fragments.recording.RecordingFragment;
 import com.pt.myeeg.fragments.schedule.ScheduleFragment;
 import com.pt.myeeg.fragments.schedule.SchedulesFragment;
 import com.pt.myeeg.services.database.InfoHandler;
 
-import java.util.ArrayList;
-
-
 /**
  * Created by Jorge Zepeda Tinoco on 24/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class ContentScheduleActivity extends BaseActivityLifecycle{

@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Jorge on 23/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class ScheduleAppointmentTask extends AbstractRequestTask {

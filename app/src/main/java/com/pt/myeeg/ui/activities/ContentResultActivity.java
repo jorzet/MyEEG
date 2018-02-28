@@ -14,6 +14,7 @@ import com.pt.myeeg.services.database.InfoHandler;
 
 /**
  * Created by Jorge Zepeda Tinoco on 19/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class ContentResultActivity extends BaseActivityLifecycle {

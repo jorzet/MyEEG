@@ -2,6 +2,7 @@ package com.pt.myeeg.models;
 
 /**
  * Created by Fernando Hernandez Molina on 20/11/2017.
+ * jorzet.94@gmail.com
  */
 
 public class Dispositivo {

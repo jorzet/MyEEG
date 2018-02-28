@@ -10,6 +10,7 @@ import com.pt.myeeg.services.database.InfoHandler;
 
 /**
  * Created by Jorge Zepeda Tinoco on 22/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class ContentRequestManager {

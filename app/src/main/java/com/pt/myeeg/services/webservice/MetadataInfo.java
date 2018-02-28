@@ -6,12 +6,12 @@ import android.util.Log;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.models.Usuario;
 
 import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Jorge Zepeda Tinoco on 13/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class MetadataInfo {

@@ -6,6 +6,7 @@ import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge Zepeda Tinoco on 24/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class GetGeneralResultTask extends AbstractRequestTask {

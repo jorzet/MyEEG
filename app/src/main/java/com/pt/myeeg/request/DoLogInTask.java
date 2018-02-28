@@ -3,13 +3,12 @@ package com.pt.myeeg.request;
 import android.content.Context;
 import android.util.Log;
 
-import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.services.webservice.HttpRequest;
 import com.pt.myeeg.services.webservice.JSONBuilder;
 import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge Zepeda Tinoco on 22/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class DoLogInTask extends AbstractRequestTask {

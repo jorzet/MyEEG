@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jorge Zepeda Tinoco on 04/09/17.
+ * jorzet.94@gmail.com
  */
 
 public class CountDown extends Service {

@@ -4,12 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import com.pt.myeeg.R;
 
 /**
  * Created by Jorge Zepeda Tinoco on 05/09/17.
+ * jorzet.94@gmail.com
  */
 
 public class ErrorDialog {

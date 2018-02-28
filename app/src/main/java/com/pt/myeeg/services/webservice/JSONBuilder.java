@@ -1,7 +1,6 @@
 package com.pt.myeeg.services.webservice;
 
 import android.content.Intent;
-import android.os.CountDownTimer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -18,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 13/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class JSONBuilder {

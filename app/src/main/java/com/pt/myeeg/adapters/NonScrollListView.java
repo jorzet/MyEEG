@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 /**
  * Created by Jorge Zepeda Tinoco on 02/01/18.
+ * jorzet.94@gmail.com
  */
 
 public class NonScrollListView extends ListView {

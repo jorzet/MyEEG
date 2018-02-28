@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class RecordingFragment extends BaseContentFragment{

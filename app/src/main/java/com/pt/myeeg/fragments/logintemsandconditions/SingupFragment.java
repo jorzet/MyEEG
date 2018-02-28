@@ -1,14 +1,9 @@
 package com.pt.myeeg.fragments.logintemsandconditions;
 
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,20 +19,16 @@ import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.Especialista;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.models.Usuario;
-import com.pt.myeeg.security.Hash;
 import com.pt.myeeg.services.database.InfoHandler;
-import com.pt.myeeg.services.webservice.MetadataInfo;
-import com.pt.myeeg.ui.activities.ContentActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Objects;
 
 /**
  * Created by Jorge Zepeda Tinoco on 08/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class SingupFragment extends BaseContentFragment implements View.OnClickListener{

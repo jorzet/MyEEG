@@ -9,6 +9,7 @@ import android.util.Log;
 
 /**
  * Created by Jorge on 30/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class BluetoothConnectionCast extends Service {

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -19,13 +18,13 @@ import com.pt.myeeg.adapters.SegmentResultAdapter;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
 import com.pt.myeeg.models.ResultadosSegmento;
 import com.pt.myeeg.services.database.InfoHandler;
-import com.pt.myeeg.services.webservice.JSONBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 24/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class SegmentResultsFragment extends BaseContentFragment {

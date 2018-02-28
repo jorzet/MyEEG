@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 /**
  * Created by Jorge Zepeda Tinoco on 16/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class AccessToken {

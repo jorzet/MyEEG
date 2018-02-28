@@ -10,6 +10,7 @@ import com.pt.myeeg.fragments.content.BaseFragment;
 
 /**
  * Created by Jorge Zepeda Tinoco on 13/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class PatientResults extends BaseFragment{

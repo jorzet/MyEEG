@@ -7,6 +7,7 @@ import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge on 01/01/18.
+ * jorzet.94@gmail.com
  */
 
 public class GetPatientDataTask extends AbstractRequestTask {

@@ -1,8 +1,6 @@
 package com.pt.myeeg.fragments.schedule;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +21,6 @@ import android.widget.TimePicker;
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.CalibrationCanvas;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
@@ -31,11 +28,11 @@ import com.pt.myeeg.services.database.InfoHandler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco on 16/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class AppointmentScheduleFragment extends BaseContentFragment {

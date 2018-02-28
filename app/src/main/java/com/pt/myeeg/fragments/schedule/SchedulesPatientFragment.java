@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.SchedulesAdapter;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.fragments.results.GeneralResultsFragment;
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Palabras;
@@ -26,6 +25,7 @@ import static com.pt.myeeg.models.Palabras.ID_PATIENT;
 
 /**
  * Created by Jorge Zepeda Tinoco on 22/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class SchedulesPatientFragment extends BaseContentFragment implements AdapterView.OnItemClickListener{

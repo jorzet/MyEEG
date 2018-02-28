@@ -1,11 +1,12 @@
 package com.pt.myeeg.models;
-import java.util.Date;
 
 /**
  * @author Jorge Zepeda Tinoco
+ * @email jorzet.94@gmail.com
  * @version 1.0
  * @created 02-Jul-2017 1:24:04 PM
  */
+
 public class Cita {
     private int folioCita;
     private Paciente paciente;

@@ -3,7 +3,6 @@ package com.pt.myeeg.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 
 import com.pt.myeeg.R;
 import com.pt.myeeg.security.AccessToken;
@@ -14,6 +13,7 @@ import com.pt.myeeg.security.AccessToken;
 
 /**
  * Created by Jorge Zepeda Tinoco on 7/1/2017.
+ * jorzet.94@gmail.com
  */
 
 

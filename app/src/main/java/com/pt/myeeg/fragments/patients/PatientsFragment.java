@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.pt.myeeg.R;
 import com.pt.myeeg.adapters.PatientsAdapter;
 import com.pt.myeeg.fragments.content.BaseContentFragment;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
 import com.pt.myeeg.services.database.InfoHandler;
@@ -31,6 +30,7 @@ import static com.pt.myeeg.models.Palabras.ID_PATIENT;
 
 /**
  * Created by Jorge Zepeda Tinoco on 16/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class PatientsFragment extends BaseContentFragment implements AdapterView.OnItemClickListener{

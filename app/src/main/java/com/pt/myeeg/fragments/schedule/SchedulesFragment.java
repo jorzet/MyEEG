@@ -3,7 +3,6 @@ package com.pt.myeeg.fragments.schedule;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.pt.myeeg.fragments.recording.RecordingFragment;
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.fragments.content.BaseFragment;
 import com.pt.myeeg.services.database.InfoHandler;
 import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 import com.pt.myeeg.ui.dialogs.ErrorDialog;
@@ -36,6 +34,7 @@ import java.util.Date;
 
 /**
  * Created by Jorge Zepeda Tinoco on 09/07/17.
+ * jorzet.94@gmail.com
  */
 
 public class SchedulesFragment extends BaseContentFragment implements AdapterView.OnItemClickListener{

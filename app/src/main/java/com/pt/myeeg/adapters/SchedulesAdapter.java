@@ -1,13 +1,10 @@
 package com.pt.myeeg.adapters;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,13 +13,12 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.pt.myeeg.R;
 import com.pt.myeeg.services.database.InfoHandler;
-import com.pt.myeeg.ui.activities.ContentActivity;
-import com.pt.myeeg.ui.activities.ContentScheduleActivity;
 
 import java.util.List;
 
 /**
  * Created by Jorge Zepeda Tinoco
+ * jorzet.94@gmail.com
  * @version 1.0
  * @created 13-Jul-2017
  */

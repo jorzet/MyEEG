@@ -7,10 +7,9 @@ import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.services.webservice.JSONBuilder;
 import com.pt.myeeg.services.webservice.MetadataInfo;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Created by Jorge Zepeda Tinoco on 23/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class DoSingUpTask extends AbstractRequestTask {

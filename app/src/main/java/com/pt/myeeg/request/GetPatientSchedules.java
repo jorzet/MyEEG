@@ -7,6 +7,7 @@ import com.pt.myeeg.services.webservice.MetadataInfo;
 
 /**
  * Created by Jorge Zepeda Tinoco on 23/12/17.
+ * jorzet.94@gmail.com
  */
 
 public class GetPatientSchedules extends AbstractRequestTask {

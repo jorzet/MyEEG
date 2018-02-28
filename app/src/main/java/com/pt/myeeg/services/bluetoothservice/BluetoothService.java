@@ -1,20 +1,16 @@
 package com.pt.myeeg.services.bluetoothservice;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
 import com.pt.myeeg.models.Cita;
 import com.pt.myeeg.models.Dispositivo;
 import com.pt.myeeg.models.Paciente;
 import com.pt.myeeg.models.Palabras;
-import com.pt.myeeg.models.Usuario;
 import com.pt.myeeg.services.database.InfoHandler;
 
 import org.json.JSONArray;
@@ -25,11 +21,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.UUID;
 
 /**
  * Created by Jorge Zepeda Tinoco on 22/08/17.
+ * jorzet.94@gmail.com
  */
 
 public class BluetoothService {

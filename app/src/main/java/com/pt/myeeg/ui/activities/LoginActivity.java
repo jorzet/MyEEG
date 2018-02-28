@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import com.pt.myeeg.R;
 import com.pt.myeeg.fragments.logintemsandconditions.SinginFragment;
 import com.pt.myeeg.fragments.logintemsandconditions.SingupFragment;
-import com.pt.myeeg.fragments.schedule.CalibrationFragment;
 import com.pt.myeeg.models.Palabras;
 
 /**
  * Created by Jorge Zepeda Tinoco on 7/1/2017.
+ * jorzet.94@gmail.com
  */
 
 public class LoginActivity extends BaseActivityLifecycle{
