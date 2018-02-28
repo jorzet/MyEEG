@@ -39,8 +39,8 @@ public class BluetoothService {
     public static final int CODE_ERROR_CONNECTION =         0x04;
     public static final int CODE_TESTING_ERROR =            0x05;
 
-    private static final String CONNECTION_SUCCESSFULLY = "connection_successfully";
-    private static final String TESTING_ERROR = "testing_error";
+    public static final String CONNECTION_SUCCESSFULLY = "connection_successfully";
+    private static final String TESTING_ERROR =          "connection_device_error";
 
     /* To chech the bluetooth adapter status  */
     public static final int REQUEST_ENABLE_BT = 1;
@@ -202,13 +202,26 @@ public class BluetoothService {
                 Log.d(TAG,"datos: "+ data);
                 if(data.contains(TESTING_ERROR)) {
                     Log.d(TAG,"jsonError: "+ data);
-                    setJsonTestingConnectionError(data);
+                    setJsonTestingConnectionError(Palabras.TESTING_BLUETOOTH_ERROR);
                     return CODE_TESTING_ERROR;
                 } else if (data.contains(CONNECTION_SUCCESSFULLY)) {
+                    // sends user data
                     Log.d(TAG,"jsonSuccess: "+ data);
                     OutputStream mmOutputStream = mmSocket.getOutputStream();
                     mmOutputStream.write(getUserInformation().getBytes());
-                    return BluetoothService.DATA_SUCESSFULLY_SENDED;
+
+                    // get devices connectivity
+                    byte[] packetTestBytes = new byte[bytesAvailable];
+                    mmInputStream.read(packetTestBytes);
+                    String testMessage = new String(packetTestBytes, "US-ASCII");
+
+                    // check response
+                    if(testMessage.contains(TESTING_ERROR)) {
+                        setJsonTestingConnectionError(Palabras.TESTING_BLUETOOTH_ERROR);
+                        return BluetoothService.CODE_TESTING_ERROR;
+                    } else if (testMessage.contains(CONNECTION_SUCCESSFULLY)) {
+                        return BluetoothService.DATA_SUCESSFULLY_SENDED;
+                    }
                 }
             }
         } catch (IOException e) {

@@ -145,7 +145,7 @@ public class SchedulesPatientFragment extends BaseContentFragment implements Ada
     public void onGetPatientSchedulesSuccess(String response) {
         super.onGetPatientSchedulesSuccess(response);
         new InfoHandler(getContext()).savePatientSchedules(response);
-
+        setData();
         adapter = new SchedulesAdapter(getContext(), R.layout.item_schedule_listview, stringScheduleList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
